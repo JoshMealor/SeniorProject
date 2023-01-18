@@ -1,0 +1,60 @@
+﻿@model List<SeniorProject.Models.DataLayer.TableModels.Member>
+@{
+    //Inject the model in to the razor view(1st line) and set the viewdata on title to home page
+    ViewData["Title"] = "Manage Members";
+}
+
+
+
+
+<!--Add a table to display all the heffer table records in the database-->
+<!--Use bootstrap table class to style the table-->
+<table class="table">
+    <!--give the table descriptive headers-->
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>MemberRole</th>
+            <th>ActiveStatus</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>City</th>
+            <th>State</th>
+        </tr>        
+    </thead>
+    <!--add the table body-->
+    <tbody>
+        <!--Use razor syntax to dynamically create table row elements for the properties of the heffer model representing columns and rows in the database table heffers-->
+        @foreach (SeniorProject.Models.DataLayer.TableModels.Member member in Model)
+        {
+            <tr>
+                <!--Use inline razor expressions to add the index's model property values -->
+                <th>@member.MemberID</th>
+                <th>@member.MemberRole</th>
+                <th>@member.ActiveStatus</th>
+                <th>@member.FirstName</th>
+                <th>@member.LastName</th>
+                <th>@member.City</th>
+                <th>@member.State</th>
+                <th>@member.User.Email</th>
+                <th>@member.User.PhoneNumber</th>
+                <!--Each record will have a link styled as a bootstrap btn to add or edit next to it with route data of the row's model's id-->
+                <th><a asp-area="Authenticated" asp-controller="Manager" asp-action="EditMember" asp-route-Id="@member.MemberID">Edit</a></th>
+                <th><a asp-area="Authenticated" asp-controller="Manager" asp-action="DeleteMember" asp-route-Id="@member.MemberID">Delete</a></th>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+<!--Add a link styled as a bootstrap btn-primary to add a new record-->
+<a asp-area="Authenticated" asp-controller="Manager" asp-action="AddMember" class="btn-primary">AddMember</a>
+
+<!--Use a razor code block to check for tempdata with a key that is named change. If it does find one, it inserts a h4 element with the value-->
+@if (TempData.Keys.Contains("Change"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["Change"]
+    </h4>
+}
+
+

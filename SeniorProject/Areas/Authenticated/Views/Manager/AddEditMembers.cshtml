@@ -1,0 +1,34 @@
+﻿@*
+    Inject the Heffer model
+*@
+@model SeniorProject.Models.DataLayer.User
+@{
+    //This view is used by heffer\Add and heffer\edit
+    //Create a variable to store the viewbag action data and concatenate
+    string title = ViewBag.Action.ToString() + "page";
+    //Assidn the viewdata title used in layout to the variable above
+    ViewData["Title"] = title;
+}
+<!--Add a paragraph element to inform the user they are on the add edit page-->
+<p>This is Add Edit</p>
+<!--Add a form for the heffer model. use the tag helpers -->
+<form asp-action="AddEditUser" method="post">
+    <!--Add all the input and label for elements using asp.net tag helpers-->
+    <div>
+        <label asp-for="UserName">UserName</label>
+        <input asp-for="UserName"/>
+    </div>
+    <div>
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" />
+    </div>
+    <div>
+        <label asp-for="PhoneNumber">PhoneNumber</label>
+        <input asp-for="PhoneNumber" />
+    </div>
+   
+    <!--Use a hidden Id field so that the primary key can be created on the datbase side-->
+    <input type="hidden" asp-for="Id"/>
+    <!--Set the btn text to whatever action edit or add this view is being used for.-->
+    <button type="submit">@ViewBag.Action</button>
+</form>

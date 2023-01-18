@@ -1,0 +1,53 @@
+﻿@model SeniorProject.Models.ViewLayer.LoginViewModel
+@{
+    //Inject the model above
+    //Set the viewbag to the views name 
+    ViewBag.Title = "Login";
+}
+<!--Add a header to describe the page-->
+<h1>Login</h1>
+ <!--Use the asp.net tag helpers to add a div element with the validation summary-->
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<!--Add a form and use the asp.net tag helpers-->
+<form method="post" asp-action="LogIn">
+    <!--Add a row fo the username input and validation message-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Username:</label></div>
+        <div class="col-sm-4">
+            <input asp-for="Username" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Username"
+                  class="text-danger"></span>
+        </div>
+    </div>
+    <!--Add a row for the password input and validation message-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Password:</label></div>
+        <div class="col-sm-4">
+            <input type="password" asp-for="Password"
+                   class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Password"
+                  class="text-danger"></span>
+        </div>
+    </div>
+    <!--Add a row for the button-->
+    <div class="row">
+        <div class="offset-2 col-sm-4">
+            <button type="submit" class="btn btn-primary">
+                Log In
+            </button>
+        </div>
+    </div>
+    <!--Add a row for the Create new user link and the help link-->
+    <div class="row">
+        <div class="offset-2 col-sm-4">
+            Not registered?
+            <a asp-action="Register">Register as a new user</a>
+         
+        </div>
+    </div>
+</form>
+

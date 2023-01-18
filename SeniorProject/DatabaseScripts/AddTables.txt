@@ -1,0 +1,324 @@
+﻿CREATE TABLE [dbo].[AspNetRoles] (
+    [Id]               NVARCHAR (450) NOT NULL,
+    [Name]             NVARCHAR (256) NULL,
+    [NormalizedName]   NVARCHAR (256) NULL,
+    [ConcurrencyStamp] NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [RoleNameIndex]
+    ON [dbo].[AspNetRoles]([NormalizedName] ASC) WHERE ([NormalizedName] IS NOT NULL);
+
+
+GO
+
+
+CREATE TABLE [dbo].[AspNetUsers] (
+    [Id]                   NVARCHAR (450)     NOT NULL,
+    [UserName]             NVARCHAR (256)     NULL,
+    [NormalizedUserName]   NVARCHAR (256)     NULL,
+    [Email]                NVARCHAR (256)     NULL,
+    [NormalizedEmail]      NVARCHAR (256)     NULL,
+    [EmailConfirmed]       BIT                NOT NULL,
+    [PasswordHash]         NVARCHAR (MAX)     NULL,
+    [SecurityStamp]        NVARCHAR (MAX)     NULL,
+    [ConcurrencyStamp]     NVARCHAR (MAX)     NULL,
+    [PhoneNumber]          NVARCHAR (MAX)     NULL,
+    [PhoneNumberConfirmed] BIT                NOT NULL,
+    [TwoFactorEnabled]     BIT                NOT NULL,
+    [LockoutEnd]           DATETIMEOFFSET (7) NULL,
+    [LockoutEnabled]       BIT                NOT NULL,
+    [AccessFailedCount]    INT                NOT NULL,
+    CONSTRAINT [PK_AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [EmailIndex]
+    ON [dbo].[AspNetUsers]([NormalizedEmail] ASC);
+
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UserNameIndex]
+    ON [dbo].[AspNetUsers]([NormalizedUserName] ASC) WHERE ([NormalizedUserName] IS NOT NULL);
+
+
+
+
+GO
+
+CREATE TABLE [dbo].[Events] (
+    [EventID]          INT            IDENTITY (1, 1) NOT NULL,
+    [EventName]        NVARCHAR (MAX) NOT NULL,
+    [EventDescription] NVARCHAR (MAX) NOT NULL,
+    [StartDateTime]    DATETIME2 (7)  NOT NULL,
+    [EndDateTime]      DATETIME2 (7)  NOT NULL,
+    [EventLocation]    NVARCHAR (MAX) NOT NULL,
+    CONSTRAINT [PK_Events] PRIMARY KEY CLUSTERED ([EventID] ASC)
+);
+
+GO
+
+
+CREATE TABLE [dbo].[AspNetRoleClaims] (
+    [Id]         INT            IDENTITY (1, 1) NOT NULL,
+    [RoleId]     NVARCHAR (450) NOT NULL,
+    [ClaimType]  NVARCHAR (MAX) NULL,
+    [ClaimValue] NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_AspNetRoleClaims] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_AspNetRoleClaims_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [dbo].[AspNetRoles] ([Id]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_AspNetRoleClaims_RoleId]
+    ON [dbo].[AspNetRoleClaims]([RoleId] ASC);
+
+
+
+GO
+
+
+
+
+
+CREATE TABLE [dbo].[RoleAccess] (
+    [RoleAccessID]   INT            IDENTITY (1, 1) NOT NULL,
+    [TableName]      NVARCHAR (MAX) NOT NULL,
+    [Read]           BIT            NOT NULL,
+    [Write]          BIT            NOT NULL,
+    [Delete]         BIT            NOT NULL,
+    [IdentityRoleId] NVARCHAR (450) NOT NULL,
+    CONSTRAINT [PK_RoleAccess] PRIMARY KEY CLUSTERED ([RoleAccessID] ASC),
+    CONSTRAINT [FK_RoleAccess_AspNetRoles_IdentityRoleId] FOREIGN KEY ([IdentityRoleId]) REFERENCES [dbo].[AspNetRoles] ([Id]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_RoleAccess_IdentityRoleId]
+    ON [dbo].[RoleAccess]([IdentityRoleId] ASC);
+
+
+
+
+    GO
+
+
+CREATE TABLE [dbo].[AspNetUserClaims] (
+    [Id]         INT            IDENTITY (1, 1) NOT NULL,
+    [UserId]     NVARCHAR (450) NOT NULL,
+    [ClaimType]  NVARCHAR (MAX) NULL,
+    [ClaimValue] NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_AspNetUserClaims] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_AspNetUserClaims_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_AspNetUserClaims_UserId]
+    ON [dbo].[AspNetUserClaims]([UserId] ASC);
+
+
+
+
+
+
+GO
+
+
+
+
+
+
+
+CREATE TABLE [dbo].[AspNetUserLogins] (
+    [LoginProvider]       NVARCHAR (450) NOT NULL,
+    [ProviderKey]         NVARCHAR (450) NOT NULL,
+    [ProviderDisplayName] NVARCHAR (MAX) NULL,
+    [UserId]              NVARCHAR (450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserLogins] PRIMARY KEY CLUSTERED ([LoginProvider] ASC, [ProviderKey] ASC),
+    CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_AspNetUserLogins_UserId]
+    ON [dbo].[AspNetUserLogins]([UserId] ASC);
+
+
+
+
+
+GO
+
+
+
+
+CREATE TABLE [dbo].[AspNetUserRoles] (
+    [UserId] NVARCHAR (450) NOT NULL,
+    [RoleId] NVARCHAR (450) NOT NULL,
+    CONSTRAINT [PK_AspNetUserRoles] PRIMARY KEY CLUSTERED ([UserId] ASC, [RoleId] ASC),
+    CONSTRAINT [FK_AspNetUserRoles_AspNetRoles_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [dbo].[AspNetRoles] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_AspNetUserRoles_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_AspNetUserRoles_RoleId]
+    ON [dbo].[AspNetUserRoles]([RoleId] ASC);
+
+
+
+
+GO
+
+
+
+
+CREATE TABLE [dbo].[AspNetUserTokens] (
+    [UserId]        NVARCHAR (450) NOT NULL,
+    [LoginProvider] NVARCHAR (450) NOT NULL,
+    [Name]          NVARCHAR (450) NOT NULL,
+    [Value]         NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_AspNetUserTokens] PRIMARY KEY CLUSTERED ([UserId] ASC, [LoginProvider] ASC, [Name] ASC),
+    CONSTRAINT [FK_AspNetUserTokens_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+
+
+
+
+GO
+
+
+
+
+CREATE TABLE [dbo].[Donors] (
+    [DonorID]     INT            IDENTITY (1, 1) NOT NULL,
+    [SolicitedBy] NVARCHAR (MAX) NOT NULL,
+    [UserId]      NVARCHAR (450) NOT NULL,
+    CONSTRAINT [PK_Donors] PRIMARY KEY CLUSTERED ([DonorID] ASC),
+    CONSTRAINT [FK_Donors_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Donors_UserId]
+    ON [dbo].[Donors]([UserId] ASC);
+
+
+
+
+
+    GO
+
+
+
+
+CREATE TABLE [dbo].[Members] (
+    [MemberID]     INT            IDENTITY (1, 1) NOT NULL,
+    [MemberRole]   NVARCHAR (MAX) NOT NULL,
+    [ActiveStatus] BIT            NOT NULL,
+    [FirstName]    NVARCHAR (MAX) NOT NULL,
+    [LastName]     NVARCHAR (MAX) NOT NULL,
+    [City]         NVARCHAR (MAX) NOT NULL,
+    [State]        NVARCHAR (MAX) NOT NULL,
+    [UserId]       NVARCHAR (450) NOT NULL,
+    CONSTRAINT [PK_Members] PRIMARY KEY CLUSTERED ([MemberID] ASC),
+    CONSTRAINT [FK_Members_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Members_UserId]
+    ON [dbo].[Members]([UserId] ASC);
+
+
+
+
+
+
+GO
+
+
+
+
+CREATE TABLE [dbo].[EventInventations] (
+    [EventInventationID]     INT            IDENTITY (1, 1) NOT NULL,
+    [InvitationBody]         NVARCHAR (MAX) NOT NULL,
+    [InvitationResponseBody] NVARCHAR (MAX) NOT NULL,
+    [EventID]                INT            NOT NULL,
+    [UserId]                 NVARCHAR (450) NOT NULL,
+    CONSTRAINT [PK_EventInventations] PRIMARY KEY CLUSTERED ([EventInventationID] ASC),
+    CONSTRAINT [FK_EventInventations_AspNetUsers_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[AspNetUsers] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_EventInventations_Events_EventID] FOREIGN KEY ([EventID]) REFERENCES [dbo].[Events] ([EventID]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_EventInventations_EventID]
+    ON [dbo].[EventInventations]([EventID] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_EventInventations_UserId]
+    ON [dbo].[EventInventations]([UserId] ASC);
+
+
+
+
+
+GO
+
+
+
+
+
+
+
+CREATE TABLE [dbo].[Donnations] (
+    [DonnationID]     INT            IDENTITY (1, 1) NOT NULL,
+    [DonationAmmount] FLOAT (53)     NOT NULL,
+    [PaymentMethod]   NVARCHAR (MAX) NOT NULL,
+    [DonationDate]    DATETIME2 (7)  NOT NULL,
+    [DonorID]         INT            NOT NULL,
+    CONSTRAINT [PK_Donnations] PRIMARY KEY CLUSTERED ([DonnationID] ASC),
+    CONSTRAINT [FK_Donnations_Donors_DonorID] FOREIGN KEY ([DonorID]) REFERENCES [dbo].[Donors] ([DonorID]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Donnations_DonorID]
+    ON [dbo].[Donnations]([DonorID] ASC);
+
+
+
+
+
+
+GO
+
+
+
+
+CREATE TABLE [dbo].[Dues] (
+    [DueID]         INT            IDENTITY (1, 1) NOT NULL,
+    [AmountDue]     FLOAT (53)     NOT NULL,
+    [DateTimeDue]   DATETIME2 (7)  NOT NULL,
+    [AmountPaid]    FLOAT (53)     NOT NULL,
+    [DateTimePaid]  DATETIME2 (7)  NOT NULL,
+    [PaymentMethod] NVARCHAR (MAX) NOT NULL,
+    [MemberID]      INT            NOT NULL,
+    CONSTRAINT [PK_Dues] PRIMARY KEY CLUSTERED ([DueID] ASC),
+    CONSTRAINT [FK_Dues_Members_MemberID] FOREIGN KEY ([MemberID]) REFERENCES [dbo].[Members] ([MemberID]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Dues_MemberID]
+    ON [dbo].[Dues]([MemberID] ASC);
+
+
+
+

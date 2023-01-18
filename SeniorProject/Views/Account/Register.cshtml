@@ -1,0 +1,58 @@
+﻿@model SeniorProject.Models.ViewLayer.RegisterViewModel
+@{
+    //Inject a model and adjust the viewbag to the view.
+    ViewBag.Title = "Register";
+}
+ <!--Add a header to describe the page-->
+<h1>Register</h1>
+<!--Add a validation summary using the asp.net helpers-->
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<!--Add a form for the register of new user use asp.net tag helpers-->
+<form method="post" asp-action="Register">
+    <!--Add a row for the user name label, input and validation-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Username:</label></div>
+        <div class="col-sm-4">
+            <input asp-for="Username" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Username"
+                  class="text-danger"></span>
+        </div>
+    </div>
+    <!--Add a row for the password label, input and validation-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Password:</label></div>
+        <div class="col-sm-4">
+            <input type="password" asp-for="Password"
+                   class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Password"
+                  class="text-danger"></span>
+        </div>
+    </div>
+    <!--Add a row for the confirm password label and input-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Confirm Password:</label></div>
+        <div class="col-sm-4">
+            <input type="password" asp-for="ConfirmPassword"
+                   class="form-control" />
+        </div>
+    </div>
+    <!--Add a row for the submit button-->
+    <div class="row">
+        <div class="offset-2 col-sm-4">
+            <button type="submit" class="btn btn-primary">
+                Register
+            </button>
+        </div>
+    </div>
+    <!--Add a row for the log in link and the help page link-->
+    <div class="row">
+        <div class="offset-2 col-sm-4">
+            Already registered? <a asp-action="LogIn">Log In</a>
+            <p><a asp-area="Help" asp-controller="HelpMe" asp-action="Index">Help Menu</a></p>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Portal";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-4">
+            <ul>
+                <li>
+                    <a asp-area="Authenticated" asp-controller="Admin" asp-action="ManageUsers">ManageUsers</a>
+                </li>
+                 <li>
+                    <a asp-area="Authenticated" asp-controller="Manager" asp-action="ManageMembers">ManageMembers</a>
+                </li>
+                        
+            </ul>
+        </div>
+        <div class="col-4">
+        </div>
+        <div class="col-4">
+        </div>
+    </div>
+</div>
