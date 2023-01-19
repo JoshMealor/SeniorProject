@@ -1,34 +1,67 @@
-﻿@*
-    Inject the Heffer model
-*@
-@model SeniorProject.Models.DataLayer.User
+﻿@model SeniorProject.Areas.Authenticated.Models.AddEditUserWithRoleViewModel
 @{
-    //This view is used by heffer\Add and heffer\edit
-    //Create a variable to store the viewbag action data and concatenate
+    //This view is used by more than one action
+    //Create a variable to store the viewbag action data on which action is returning this view. 
     string title = ViewBag.Action.ToString() + "page";
-    //Assidn the viewdata title used in layout to the variable above
+    //Assign the viewdata title used in layout to the variable above
     ViewData["Title"] = title;
 }
 <!--Add a paragraph element to inform the user they are on the add edit page-->
-<p>This is Add Edit</p>
-<!--Add a form for the heffer model. use the tag helpers -->
+<p>Please fill in the form to @ViewBag.Action.ToString() a user.</p>
+<!--Add a validation summary using the asp.net helpers-->
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <form asp-action="AddEditUser" method="post">
     <!--Add all the input and label for elements using asp.net tag helpers-->
+    <!--Add a row for the user name label, input and validation-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Username:</label></div>
+        <div class="col-sm-4">
+             <input asp-for="Username" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Username"
+                  class="text-danger"></span>
+        </div>
+    </div>
+    <!--Add a row for the password label, input and validation-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Password:</label></div>
+        <div class="col-sm-4">
+           <input type="password" asp-for="Password"
+                  class="form-control" />
+        </div>
+        <div class="col">
+         <span asp-validation-for="Password"
+                  class="text-danger"></span>
+        </div>
+    </div>
+    <!--Add a  row for the confirm password label and input-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Confirm Password:</label></div>
+        <div class="col-sm-4">
+            <input type="password" asp-for="ConfirmPassword"
+                   class="form-control" />
+        </div>
+    </div>
+   
+    
     <div>
-        <label asp-for="UserName">UserName</label>
-        <input asp-for="UserName"/>
+        <label asp-for="user.Email">Email</label>
+        <input asp-for="user.Email" />
     </div>
     <div>
-        <label asp-for="Email">Email</label>
-        <input asp-for="Email" />
+        <label asp-for="user.PhoneNumber">PhoneNumber</label>
+        <input asp-for="user.PhoneNumber" />
     </div>
     <div>
-        <label asp-for="PhoneNumber">PhoneNumber</label>
-        <input asp-for="PhoneNumber" />
+        <!--The view model property role choices is a list of SelectedListItem objects which will mark which one is selected-->
+         <select asp-for="role" asp-items="@Model.roleChoices" class="form-control">
+         </select>
+
     </div>
    
     <!--Use a hidden Id field so that the primary key can be created on the datbase side-->
-    <input type="hidden" asp-for="Id"/>
-    <!--Set the btn text to whatever action edit or add this view is being used for.-->
+    <input type="hidden" asp-for="user.Id"/>
+    <!--Set the btn text to whatever action, edit or add, this view is being used for.-->
     <button type="submit">@ViewBag.Action</button>
 </form>

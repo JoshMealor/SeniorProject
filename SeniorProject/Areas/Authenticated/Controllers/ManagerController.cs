@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SeniorProject.Models;
 using System.Security.Cryptography.Xml;
 
 namespace SeniorProject.Areas.Authenticated.Controlllers
@@ -11,14 +10,14 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
 
     //Add the routing attribute for the Admin area.This applies to all the actions in the controller. Also add the authorization middleware. It will redirect to login if not Authenticated with an account
     [Area("Authenticated")]
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = "Admin,Manager")]
 
     public class ManagerController : Controller
     {
         //Add a class level variable to hold the dbcontext reference passed in via dependency injection
-        private Models.DataLayer.SeniorProjectDBContext _SPDBContext { get; set; }
+        private SeniorProject.Models.DataLayer.SeniorProjectDBContext _SPDBContext { get; set; }
 
-        public ManagerController(Models.DataLayer.SeniorProjectDBContext SPDBContext)
+        public ManagerController(SeniorProject.Models.DataLayer.SeniorProjectDBContext SPDBContext)
         {
             //assign the local dbcontext variable the dependcy injected dbcontext object
             this._SPDBContext = SPDBContext;
@@ -29,7 +28,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
         public IActionResult ManageMembers()
         {
             //Retrieve all User records
-            List<Models.DataLayer.TableModels.Member> members = _SPDBContext.Members.ToList();
+            List<SeniorProject.Models.DataLayer.TableModels.Member> members = _SPDBContext.Members.ToList();
             //Pass this list to the view 
             return View(members);
         }
@@ -42,7 +41,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             //Adjust the viewbag data in the view to reflect the action 
             ViewBag.Action = "Add";
             //Create a new user model to pass to the view
-            Models.DataLayer.TableModels.Member member = new Models.DataLayer.TableModels.Member();
+            SeniorProject.Models.DataLayer.TableModels.Member member = new SeniorProject.Models.DataLayer.TableModels.Member();
             return View("AddEditMember", member);
         }
         //Add an attribute for routing. Below that is the Edit action 
@@ -51,13 +50,13 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
         {
             //Adjust the viewbag data in the view to reflect the action 
             ViewBag.Action = "Edit";
-            Models.DataLayer.TableModels.Member member = new Models.DataLayer.TableModels.Member();
+            SeniorProject.Models.DataLayer.TableModels.Member member = new SeniorProject.Models.DataLayer.TableModels.Member();
             member = _SPDBContext.Members.Find(Id);            
             return View("AddEditMember", member);
         }
         //Add an attribute for routing. Below that is the AddEdit action 
         [HttpPost]
-        public IActionResult AddEditMember(Models.DataLayer.TableModels.Member member)
+        public IActionResult AddEditMember(SeniorProject.Models.DataLayer.TableModels.Member member)
         {
 
             //Preform built in validation for the model
@@ -106,7 +105,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
         public IActionResult DeleteMember(int Id)
         {
             //Retrieve the heffer record based on the Id from the database and assign this to a new heffer model
-            Models.DataLayer.TableModels.Member member = _SPDBContext.Members.Find(Id);
+            SeniorProject.Models.DataLayer.TableModels.Member member = _SPDBContext.Members.Find(Id);
 
             //Set the tempdata to delete success
             TempData["Change"] = "You successfully removed " + member.FirstName;

@@ -1,6 +1,7 @@
 ﻿using SeniorProject.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace SeniorProject.Controllers
 {
@@ -9,17 +10,18 @@ namespace SeniorProject.Controllers
     public class AccountController : Controller
     {
         //Declate a class level variable for the User manager class of the Asp.netcore.identity namespace and pass in the user class in the models folder
-        private UserManager<Models.DataLayer.User> userManager;
+        private UserManager<IdentityUser> _userManager;
         //Declate a class level variable for the Signin manager class of the Asp.netcore.identity namespace and pass in the user class in the models folder
-        private SignInManager<Models.DataLayer.User> signInManager;
+        private SignInManager<IdentityUser> _signInManager;
+        private RoleManager<IdentityRole> _roleManager;
 
         //Create a constuctor that takes the dependency injection of the two class variables above
-        public AccountController(UserManager<Models.DataLayer.User> userMngr,
-            SignInManager<Models.DataLayer.User> signInMngr)
+        public AccountController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager,RoleManager<IdentityRole> roleManager)
         {
             //Assign the parameters from dependency injection to the class level varaibles
-            userManager = userMngr;
-            signInManager = signInMngr;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._roleManager = roleManager;
         }
 
         //Add the routing get attribute for http get request for the register action
@@ -37,15 +39,15 @@ namespace SeniorProject.Controllers
             if (ModelState.IsValid)
             {
                 //Create a new user model from the view model.
-                var user = new Models.DataLayer.User { UserName = model.Username };
+                var user = new IdentityUser { UserName = model.Username };
                 //The userManager will handle the database interaction of creating the account
-                var result = await userManager.CreateAsync(user,
+                var result = await _userManager.CreateAsync(user,
                                        model.Password);
                 //Determine if the user was added
                 if (result.Succeeded)
                 {
                     //Sign in the new user
-                    await signInManager.SignInAsync(user,
+                    await _signInManager.SignInAsync(user,
                               isPersistent: false);
                     //Redirect to the Home page
                     return RedirectToAction("Portal", "Home",new { area="Authenticated"});
@@ -68,7 +70,7 @@ namespace SeniorProject.Controllers
         public async Task<IActionResult> LogOut()
         {
             //Ensure the user gets signed out
-            await signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
             //Redirect to the home page
             return RedirectToAction("Index", "Home");
         }
@@ -92,7 +94,7 @@ namespace SeniorProject.Controllers
             {
                 //The view model is valid.
                 //Sign out the user and pass in the user's credentials
-                var result = await signInManager.PasswordSignInAsync(
+                var result = await _signInManager.PasswordSignInAsync(
                     model.Username, model.Password,false,                   
                     lockoutOnFailure: false);
                 //Determine if the logout succeded
@@ -107,6 +109,32 @@ namespace SeniorProject.Controllers
             //Pass back the view model to the login view
             return View(model);
         }
+
+
+
+
+        public async Task<IActionResult> AccessDenied()
+        {
+            Models.ViewLayer.AccessDeniedViewModel viewModel = new Models.ViewLayer.AccessDeniedViewModel();
+
+            string userName = HttpContext.User.Identity.Name;
+            IdentityUser user = await _userManager.FindByNameAsync(userName);
+            viewModel.userName = user.UserName;
+            //Get a list of all the roles
+            List<IdentityRole> roleList = await _roleManager.Roles.ToListAsync();
+            //Find the matching role for this iteration's user. There should only be one per user
+            foreach (IdentityRole role in roleList)
+            {
+                if (await _userManager.IsInRoleAsync(user, role.Name))
+                {
+                    //Assign the matching role to the view model's role property
+                    viewModel.roleName = role.Name;
+                }
+            }
+            return View(viewModel);
+        }
+
+
 
 
     }

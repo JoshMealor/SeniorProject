@@ -52,7 +52,7 @@ builder.Services.AddControllersWithViews();
 //Add the dbcontext services to interact with the database. Pass in the options to use sql server and pass in the builder's configuration's object's getconnectionstring method to grab the connection string in the appsettings.json file
 builder.Services.AddDbContext<SeniorProjectDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SPDBContext")));
 //Add the identity service for authenticating and authorizing users. Chain the methods to add on the EF database context where the identity infor is stored. Add on the token providers
-builder.Services.AddIdentity<User, IdentityRole>(options =>
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     //require passwords to be at least 6 characters
     options.Password.RequiredLength = 6;
@@ -109,9 +109,13 @@ IServiceScopeFactory scopeFactory = app.Services.GetRequiredService<IServiceScop
 //Call the create admin method using a temporary service to call the createAdminUser method
 using (IServiceScope scope = scopeFactory.CreateScope())
 {
+    await SeniorProjectDBContext.CreateBasicRoles(scope.ServiceProvider);
     //This will create a default account in the heffer database with username admin, password Password123
     await SeniorProjectDBContext.CreateAdminUser(
         scope.ServiceProvider);
+
+    await SeniorProjectDBContext.CreateBasicUsers(scope.ServiceProvider);
+
 }
 
 app.Run();

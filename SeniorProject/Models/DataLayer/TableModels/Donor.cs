@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SeniorProject.Models.DataLayer.TableModels
@@ -11,7 +12,7 @@ namespace SeniorProject.Models.DataLayer.TableModels
         public string SolicitedBy { get; set; }
 
         [Required(ErrorMessage = "Please enter a user.")]
-        public Models.DataLayer.User User { get; set; }
+        public IdentityUser User { get; set; }
 
         
     }

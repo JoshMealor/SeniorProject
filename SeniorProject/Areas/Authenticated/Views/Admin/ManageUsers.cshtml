@@ -1,13 +1,9 @@
-﻿@model List<SeniorProject.Models.DataLayer.User>
+﻿@model List<SeniorProject.Areas.Authenticated.Models.ManageUsersAndRolesViewModel> 
 @{
-    //Inject the model in to the razor view(1st line) and set the viewdata on title to home page
-    ViewData["Title"] = "Home Page";
+    
+    ViewData["Title"] = "Manage Users";
 }
 
-
-
-
-<!--Add a table to display all the heffer table records in the database-->
 <!--Use bootstrap table class to style the table-->
 <table class="table">
     <!--give the table descriptive headers-->
@@ -16,34 +12,36 @@
             <th>ID</th>
             <th>Username</th>
             <th>Email</th>
-            <th>Phone</th>          
+            <th>Phone</th>
+            <th>Role</th>
         </tr>        
     </thead>
     <!--add the table body-->
     <tbody>
-        <!--Use razor syntax to dynamically create table row elements for the properties of the heffer model representing columns and rows in the database table heffers-->
-        @foreach (SeniorProject.Models.DataLayer.User user in Model)
+        <!--Use razor syntax to dynamically create table row elements for the properties of each view model in the list-->
+        @foreach (SeniorProject.Areas.Authenticated.Models.ManageUsersAndRolesViewModel UserAndRole in Model)
         {
             <tr>
-                <!--Use inline razor expressions to add the index's model property values -->
-                <th>@user.Id</th>
-                <th>@user.UserName</th>
-                <th>@user.Email</th>
-                <th>@user.PhoneNumber</th>
-                <!--Each record will have a link styled as a bootstrap btn to add or edit next to it with route data of the row's model's id-->
-                <th><a asp-area="Authenticated" asp-action="EditUser" asp-controller="Admin" asp-route-Id="@user.Id">Edit</a></th>
-                <th><a asp-area="Authenticated" asp-action="DeleteUser" asp-controller="Admin" asp-route-Id="@user.Id">Delete</a></th>
-                
+                <!--Use inline razor expressions to add the iteration index's model property values -->
+                <th>@UserAndRole.user.Id</th>
+                <th>@UserAndRole.user.UserName</th>
+                <th>@UserAndRole.user.Email</th>
+                <th>@UserAndRole.user.PhoneNumber</th>
+                <th>@UserAndRole.role</th>
+                <!--Each record will have a link styled as a bootstrap btn to add or edit.The route data of the row's model's id is used-->
+                <th><a asp-area="Authenticated" asp-controller="Admin" asp-action="EditUser" asp-route-Id="@UserAndRole.user.Id">Edit</a></th>
+                <th><a asp-area="Authenticated" asp-controller="Admin" asp-action="DeleteUser" asp-route-Id="@UserAndRole.user.Id">Delete</a></th>
             </tr>
         }
     </tbody>
 </table>
 <!--Add a link styled as a bootstrap btn-primary to add a new record-->
-<a asp-area="Authenticated" asp-action="AddUser" asp-controller="Admin" class="btn-primary">AddUser</a>
+<a asp-area="Authenticated" asp-controller="Admin" asp-action="AddUser" class="btn-primary">Add User</a>
 
 <!--Use a razor code block to check for tempdata with a key that is named change. If it does find one, it inserts a h4 element with the value-->
 @if (TempData.Keys.Contains("Change"))
 {
+    //This is used to dynamically reflect addition success, delete success, or edit success
     <h4 class="bg-info text-center text-white p-2">
         @TempData["Change"]
     </h4>
