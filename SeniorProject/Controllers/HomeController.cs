@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SeniorProject.Models;
 using System.Diagnostics;
 
 namespace SeniorProject.Controllers
@@ -13,14 +12,14 @@ namespace SeniorProject.Controllers
             _logger = logger;
         }
 
-        //Add a method for the index action Get route is default
+        //Attribute route catch the default set in program.cs
         [Route("/")]
         public IActionResult Index()
         {
             return View();
         }
 
-        //Add a method for the privacy action. Get route is default
+        //Attribute route catch default area, home controller,privacy action
         [Route("{controller}/{action}")]
         public IActionResult Privacy()
         {
@@ -30,7 +29,7 @@ namespace SeniorProject.Controllers
 
 
 
-
+        //Catches all errors. Including any in the Authenticated area
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
