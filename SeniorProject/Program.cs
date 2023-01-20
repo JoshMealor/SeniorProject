@@ -1,27 +1,22 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SeniorProject.Models.DataLayer;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+/*
+ * Coded by Calvin Bultz
+ * CPT275-W27 Senior Project
+ * 1/19/2023
+ */
+
 
 
 //database Migrations folder generated with package manager cmd: Add-Migration Initial
 //local sql server database created using package manager cmd: Update - Database
-//This creates the identity tables used for Authentication and Authorization
-
-//The default admin is created by invoking a method on the SeniorProjectDBContext class
-//username = "admin";
-//password = "Password123";
-
-
-
-
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-
-//Session must be added befor the mvc
 //Add the session state memory cache
 builder.Services.AddMemoryCache();
 //Add the session state 
@@ -46,12 +41,12 @@ builder.Services.AddRouting(options =>
 
 
 
-// Add services to the container.
+//Configure mvc
 builder.Services.AddControllersWithViews();
 
 //Add the dbcontext services to interact with the database. Pass in the options to use sql server and pass in the builder's configuration's object's getconnectionstring method to grab the connection string in the appsettings.json file
 builder.Services.AddDbContext<SeniorProjectDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SPDBContext")));
-//Add the identity service for authenticating and authorizing users. Chain the methods to add on the EF database context where the identity infor is stored. Add on the token providers
+//Add the identity service for authenticating and authorizing users. Chain the methods to add on the EF database context where the identity information is stored. Add on the token providers
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     //require passwords to be at least 6 characters
@@ -74,7 +69,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-//add error handler page
+//Only used if the build variable is set to Development
 app.UseDeveloperExceptionPage();
 
 app.UseHttpsRedirection();
@@ -82,12 +77,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//Enable the Asp.net core Identity functionality
 app.UseAuthentication();
 app.UseAuthorization();
 //configure application to use session which will allow someone to stay logged in.
 app.UseSession();
 
-//Map routes for the admin area, the help area, and the default 
+//Map routes for the authenticated area and the public default area.
 app.UseEndpoints(endpoints =>
 {
     
@@ -109,11 +105,19 @@ IServiceScopeFactory scopeFactory = app.Services.GetRequiredService<IServiceScop
 //Call the create admin method using a temporary service to call the createAdminUser method
 using (IServiceScope scope = scopeFactory.CreateScope())
 {
+    //create the Admin,Manager,BasicMember,Volunteer
     await SeniorProjectDBContext.CreateBasicRoles(scope.ServiceProvider);
-    //This will create a default account in the heffer database with username admin, password Password123
-    await SeniorProjectDBContext.CreateAdminUser(
-        scope.ServiceProvider);
 
+    //create an admin user account with admin role
+    //username:admin
+    //password:password123
+    await SeniorProjectDBContext.CreateAdminUser(scope.ServiceProvider);
+
+    //Create some test user accounts for each role
+    //(username password)
+    //testManager password123
+    //testBasicMember password123
+    //testVolunteer password123
     await SeniorProjectDBContext.CreateBasicUsers(scope.ServiceProvider);
 
 }
