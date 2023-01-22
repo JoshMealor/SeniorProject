@@ -19,7 +19,7 @@ namespace SeniorProject.Models.DataLayer
 
         public DbSet<Donor> Donors { get; set; }
         public DbSet<Donnation> Donnations { get; set; }
-        public DbSet<RoleAccess> RoleAccess { get; set; }
+      
     
         public SeniorProjectDBContext(DbContextOptions<SeniorProjectDBContext> options) : base(options)
         {
@@ -28,7 +28,7 @@ namespace SeniorProject.Models.DataLayer
 
         //Add a method to create the default admin account in the database
         //This is called by the program class once at the start of the application
-        //If resarting the application more than once this is where the checking if it exits comes into play
+        //If resarting the application more than once this is where the checking if it exsits comes into play
         public static async Task CreateAdminUser(
                 IServiceProvider serviceProvider)
         {
@@ -168,12 +168,20 @@ namespace SeniorProject.Models.DataLayer
 
         }
 
+
+
+       
+
+
         //Overide the base dbcontext class OnModelCreating method
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Add the identity tables to the database
             base.OnModelCreating(modelBuilder);
+
            
+
+
         }
 
     }

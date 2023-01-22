@@ -11,7 +11,7 @@ using SeniorProject.Models.DataLayer;
 
 
 //database Migrations folder generated with package manager cmd: Add-Migration Initial
-//local sql server database created using package manager cmd: Update - Database
+//local sql server database created using package manager cmd: Update-Database
 
 
 var builder = WebApplication.CreateBuilder(args);

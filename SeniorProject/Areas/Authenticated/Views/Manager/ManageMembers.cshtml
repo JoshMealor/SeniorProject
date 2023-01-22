@@ -1,13 +1,10 @@
-﻿@model List<SeniorProject.Models.DataLayer.TableModels.Member>
+﻿@model List<SeniorProject.Areas.Authenticated.Models.AddEditMember>
 @{
-    //Inject the model in to the razor view(1st line) and set the viewdata on title to home page
+    //Inject the model in to the razor view(1st line) and set the viewdata on title
     ViewData["Title"] = "Manage Members";
 }
 
 
-
-
-<!--Add a table to display all the heffer table records in the database-->
 <!--Use bootstrap table class to style the table-->
 <table class="table">
     <!--give the table descriptive headers-->
@@ -20,12 +17,15 @@
             <th>LastName</th>
             <th>City</th>
             <th>State</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone</th>
         </tr>        
     </thead>
     <!--add the table body-->
     <tbody>
-        <!--Use razor syntax to dynamically create table row elements for the properties of the heffer model representing columns and rows in the database table heffers-->
-        @foreach (SeniorProject.Models.DataLayer.TableModels.Member member in Model)
+        <!--Use razor syntax to dynamically create table row elements for the properties of the list of records in the view model-->
+        @foreach (SeniorProject.Areas.Authenticated.Models.AddEditMember member in Model)
         {
             <tr>
                 <!--Use inline razor expressions to add the index's model property values -->
@@ -36,8 +36,10 @@
                 <th>@member.LastName</th>
                 <th>@member.City</th>
                 <th>@member.State</th>
-                <th>@member.User.Email</th>
-                <th>@member.User.PhoneNumber</th>
+                <th>@member.UserName</th>
+                <th>@member.Email</th>
+                <th>@member.Phone</th>
+             
                 <!--Each record will have a link styled as a bootstrap btn to add or edit next to it with route data of the row's model's id-->
                 <th><a asp-area="Authenticated" asp-controller="Manager" asp-action="EditMember" asp-route-Id="@member.MemberID">Edit</a></th>
                 <th><a asp-area="Authenticated" asp-controller="Manager" asp-action="DeleteMember" asp-route-Id="@member.MemberID">Delete</a></th>

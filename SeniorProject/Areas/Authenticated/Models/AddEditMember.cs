@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SeniorProject.Models.DataLayer.TableModels
+namespace SeniorProject.Areas.Authenticated.Models
 {
-    public class Member
+    public class AddEditMember
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MemberID { get; set; }
@@ -20,9 +20,9 @@ namespace SeniorProject.Models.DataLayer.TableModels
         
 
 
-        [Required(ErrorMessage = "Please enter a user.")]
-        public IdentityUser IdentityUser { get; set; }
-        public string IdentityUserID { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
 
     
 

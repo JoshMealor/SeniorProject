@@ -15,7 +15,8 @@ namespace SeniorProject.Models.DataLayer.TableModels
         public string PaymentMethod { get; set; }
 
         [Required(ErrorMessage = "Please enter a member.")]
-        public Models.DataLayer.TableModels.Member Member { get; set; }
+        public Member Member { get; set; }
+        public int MemberID { get; set; }
        
 
 

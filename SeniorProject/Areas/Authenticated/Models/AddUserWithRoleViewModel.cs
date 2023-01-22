@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Net;
 using System.Xml.Linq;
 
 namespace SeniorProject.Areas.Authenticated.Models
 {
-    public class AddEditUserWithRoleViewModel
+    public class AddUserWithRoleViewModel
     {
         //Add the required attribute validation and error messages. Also ensuer string length is less than 255
         [Required(ErrorMessage = "Please enter a username.")]
@@ -24,9 +24,12 @@ namespace SeniorProject.Areas.Authenticated.Models
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
-        public IdentityUser user { get; set; }
-        public string role { get; set; }
-        public List<SelectListItem> roleChoices { get; set; }
 
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
+        [Required(ErrorMessage = "Please choose a role.")]
+        public string Role { get; set; }
+       
+        public List<SelectListItem>? roleChoices { get; set; }
     }
 }

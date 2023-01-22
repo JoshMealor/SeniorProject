@@ -1,0 +1,63 @@
+﻿@model SeniorProject.Areas.Authenticated.Models.AddUserWithRoleViewModel
+@{
+    
+    ViewData["Title"] = "Add a User";
+   
+
+}
+
+<!--Add a validation summary using the asp.net helpers-->
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="AddUser" method="post">
+    <!--Add a row for the user name label, input and validation-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Username:</label></div>
+        <div class="col-sm-4">
+            <input asp-for="Username" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Username"
+                  class="text-danger"></span>
+        </div>
+    </div>
+    <!--Add a row for the password label, input and validation-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Password:</label></div>
+        <div class="col-sm-4">
+            <input type="password" asp-for="Password"
+                   class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Password"
+                  class="text-danger"></span>
+        </div>
+    </div>
+    <!--Add a row for the confirm password label and input-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Confirm Password:</label></div>
+        <div class="col-sm-4">
+            <input type="password" asp-for="ConfirmPassword"
+                   class="form-control" />
+        </div>
+    </div>
+   
+    
+    <div>
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" />
+    </div>
+    <div>
+        <label asp-for="Phone">PhoneNumber</label>
+        <input asp-for="Phone" />
+    </div>
+    <div>
+        <!--The view model property role choices is a list of SelectedListItem objects which will mark which one is selected-->
+         <select asp-for="Role" asp-items="@Model.roleChoices" class="form-control">
+         </select>
+    </div>
+   
+   
+    
+    <!--Set the btn text to whatever action, edit or add, this view is being used for.-->
+    <button type="submit">Add User</button>
+</form>

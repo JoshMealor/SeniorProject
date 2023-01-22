@@ -16,9 +16,11 @@ namespace SeniorProject.Models.DataLayer.TableModels
         public string InvitationResponseBody { get; set; }
 
         [Required(ErrorMessage = "Please enter an event.")]
-        public Models.DataLayer.TableModels.Event Event { get; set; }
+        public Event Event { get; set; }
+        public int EventID { get; set; }
 
         [Required(ErrorMessage = "Please enter a user.")]
-        public IdentityUser User { get; set; }
+        public IdentityUser IdentityUser { get; set; }
+        public string IdentityUserID { get; set; }
     }
 }

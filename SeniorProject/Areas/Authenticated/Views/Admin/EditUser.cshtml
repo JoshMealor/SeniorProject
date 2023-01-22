@@ -1,0 +1,44 @@
+﻿@model SeniorProject.Areas.Authenticated.Models.EditUserWithRoleViewModel
+@{
+    ViewData["Title"] = "Edit User";
+
+
+}
+
+<!--Add a validation summary using the asp.net helpers-->
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="EditUser" method="post">
+    <!--Add all the input and label for elements using asp.net tag helpers-->
+    <!--Add a row for the user name label, input and validation-->
+    <div class="form-group row">
+        <div class="col-sm-2"><label>Username:</label></div>
+        <div class="col-sm-4">
+             <input asp-for="Username" class="form-control" />
+        </div>
+        <div class="col">
+            <span asp-validation-for="Username"
+                  class="text-danger"></span>
+        </div>
+    </div>
+   
+    
+    <div>
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" />
+    </div>
+    <div>
+        <label asp-for="PhoneNumber">PhoneNumber</label>
+        <input asp-for="PhoneNumber" />
+    </div>
+    <div>
+        <!--The view model property role choices is a list of SelectedListItem objects which will mark which one is selected-->
+         <select asp-for="role" asp-items="@Model.roleChoices" class="form-control">
+         </select>
+    </div>
+   
+    <!--Use a hidden Id field so that the primary key can be created on the datbase side-->
+    <input type="hidden" asp-for="IdentityUserID" />
+    
+    <!--Set the btn text to whatever action, edit or add, this view is being used for.-->
+    <button type="submit">Update</button>
+</form>

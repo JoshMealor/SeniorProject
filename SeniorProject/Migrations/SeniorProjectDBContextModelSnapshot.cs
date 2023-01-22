@@ -234,7 +234,7 @@ namespace SeniorProject.Migrations
                     b.Property<DateTime>("DonationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DonorID")
+                    b.Property<int>("DonorId")
                         .HasColumnType("int");
 
                     b.Property<string>("PaymentMethod")
@@ -243,7 +243,7 @@ namespace SeniorProject.Migrations
 
                     b.HasKey("DonnationID");
 
-                    b.HasIndex("DonorID");
+                    b.HasIndex("DonorId");
 
                     b.ToTable("Donnations");
                 });
@@ -256,17 +256,17 @@ namespace SeniorProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DonorID"));
 
+                    b.Property<string>("IdentityUserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("SolicitedBy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("DonorID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdentityUserID");
 
                     b.ToTable("Donors");
                 });
@@ -347,6 +347,10 @@ namespace SeniorProject.Migrations
                     b.Property<int>("EventID")
                         .HasColumnType("int");
 
+                    b.Property<string>("IdentityUserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("InvitationBody")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -355,15 +359,11 @@ namespace SeniorProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("EventInventationID");
 
                     b.HasIndex("EventID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdentityUserID");
 
                     b.ToTable("EventInventations");
                 });
@@ -387,6 +387,10 @@ namespace SeniorProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IdentityUserID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -399,47 +403,11 @@ namespace SeniorProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("MemberID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("IdentityUserID");
 
                     b.ToTable("Members");
-                });
-
-            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.RoleAccess", b =>
-                {
-                    b.Property<int>("RoleAccessID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleAccessID"));
-
-                    b.Property<bool>("Delete")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("IdentityRoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("Read")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("TableName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Write")
-                        .HasColumnType("bit");
-
-                    b.HasKey("RoleAccessID");
-
-                    b.HasIndex("IdentityRoleId");
-
-                    b.ToTable("RoleAccess");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -497,7 +465,7 @@ namespace SeniorProject.Migrations
                 {
                     b.HasOne("SeniorProject.Models.DataLayer.TableModels.Donor", "Donor")
                         .WithMany()
-                        .HasForeignKey("DonorID")
+                        .HasForeignKey("DonorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -506,13 +474,13 @@ namespace SeniorProject.Migrations
 
             modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Donor", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("IdentityUserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("IdentityUser");
                 });
 
             modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Due", b =>
@@ -534,37 +502,26 @@ namespace SeniorProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("IdentityUserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Event");
 
-                    b.Navigation("User");
+                    b.Navigation("IdentityUser");
                 });
 
             modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Member", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("IdentityUserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.RoleAccess", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "IdentityRole")
-                        .WithMany()
-                        .HasForeignKey("IdentityRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("IdentityRole");
+                    b.Navigation("IdentityUser");
                 });
 #pragma warning restore 612, 618
         }

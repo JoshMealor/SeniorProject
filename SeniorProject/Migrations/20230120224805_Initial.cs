@@ -89,29 +89,6 @@ namespace SeniorProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RoleAccess",
-                columns: table => new
-                {
-                    RoleAccessID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TableName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Read = table.Column<bool>(type: "bit", nullable: false),
-                    Write = table.Column<bool>(type: "bit", nullable: false),
-                    Delete = table.Column<bool>(type: "bit", nullable: false),
-                    IdentityRoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleAccess", x => x.RoleAccessID);
-                    table.ForeignKey(
-                        name: "FK_RoleAccess_AspNetRoles_IdentityRoleId",
-                        column: x => x.IdentityRoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -203,14 +180,14 @@ namespace SeniorProject.Migrations
                     DonorID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SolicitedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    IdentityUserID = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Donors", x => x.DonorID);
                     table.ForeignKey(
-                        name: "FK_Donors_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Donors_AspNetUsers_IdentityUserID",
+                        column: x => x.IdentityUserID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -228,14 +205,14 @@ namespace SeniorProject.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    IdentityUserID = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Members", x => x.MemberID);
                     table.ForeignKey(
-                        name: "FK_Members_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Members_AspNetUsers_IdentityUserID",
+                        column: x => x.IdentityUserID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -250,14 +227,14 @@ namespace SeniorProject.Migrations
                     InvitationBody = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InvitationResponseBody = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventID = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    IdentityUserID = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EventInventations", x => x.EventInventationID);
                     table.ForeignKey(
-                        name: "FK_EventInventations_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_EventInventations_AspNetUsers_IdentityUserID",
+                        column: x => x.IdentityUserID,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -278,14 +255,14 @@ namespace SeniorProject.Migrations
                     DonationAmmount = table.Column<double>(type: "float", nullable: false),
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DonationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DonorID = table.Column<int>(type: "int", nullable: false)
+                    DonorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Donnations", x => x.DonnationID);
                     table.ForeignKey(
-                        name: "FK_Donnations_Donors_DonorID",
-                        column: x => x.DonorID,
+                        name: "FK_Donnations_Donors_DonorId",
+                        column: x => x.DonorId,
                         principalTable: "Donors",
                         principalColumn: "DonorID",
                         onDelete: ReferentialAction.Cascade);
@@ -355,14 +332,14 @@ namespace SeniorProject.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Donnations_DonorID",
+                name: "IX_Donnations_DonorId",
                 table: "Donnations",
-                column: "DonorID");
+                column: "DonorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Donors_UserId",
+                name: "IX_Donors_IdentityUserID",
                 table: "Donors",
-                column: "UserId");
+                column: "IdentityUserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dues_MemberID",
@@ -375,19 +352,14 @@ namespace SeniorProject.Migrations
                 column: "EventID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EventInventations_UserId",
+                name: "IX_EventInventations_IdentityUserID",
                 table: "EventInventations",
-                column: "UserId");
+                column: "IdentityUserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Members_UserId",
+                name: "IX_Members_IdentityUserID",
                 table: "Members",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RoleAccess_IdentityRoleId",
-                table: "RoleAccess",
-                column: "IdentityRoleId");
+                column: "IdentityUserID");
         }
 
         /// <inheritdoc />
@@ -418,7 +390,7 @@ namespace SeniorProject.Migrations
                 name: "EventInventations");
 
             migrationBuilder.DropTable(
-                name: "RoleAccess");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Donors");
@@ -428,9 +400,6 @@ namespace SeniorProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Events");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

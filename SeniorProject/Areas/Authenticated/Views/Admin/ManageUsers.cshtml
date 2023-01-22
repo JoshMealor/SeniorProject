@@ -9,10 +9,12 @@
     <!--give the table descriptive headers-->
     <thead>
         <tr>
-            <th>ID</th>
             <th>Username</th>
+            <th>Member info: FirstName</th>
+            <th>Member info: LastName</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Active</th>
             <th>Role</th>
         </tr>        
     </thead>
@@ -23,14 +25,16 @@
         {
             <tr>
                 <!--Use inline razor expressions to add the iteration index's model property values -->
-                <th>@UserAndRole.user.Id</th>
-                <th>@UserAndRole.user.UserName</th>
-                <th>@UserAndRole.user.Email</th>
-                <th>@UserAndRole.user.PhoneNumber</th>
-                <th>@UserAndRole.role</th>
+                <th>@UserAndRole.UserName</th>
+                <th>@UserAndRole.FirstName</th>
+                <th>@UserAndRole.LastName</th>
+                <th>@UserAndRole.Email</th>
+                <th>@UserAndRole.Phone</th>
+                <th>@UserAndRole.Active.ToString()</th>
+                <th>@UserAndRole.RoleName</th>
                 <!--Each record will have a link styled as a bootstrap btn to add or edit.The route data of the row's model's id is used-->
-                <th><a asp-area="Authenticated" asp-controller="Admin" asp-action="EditUser" asp-route-Id="@UserAndRole.user.Id">Edit</a></th>
-                <th><a asp-area="Authenticated" asp-controller="Admin" asp-action="DeleteUser" asp-route-Id="@UserAndRole.user.Id">Delete</a></th>
+                <th><a asp-area="Authenticated" asp-controller="Admin" asp-action="EditUser" asp-route-Id="@UserAndRole.IdentityUserID">Edit</a></th>
+                <th><a asp-area="Authenticated" asp-controller="Admin" asp-action="DeleteUser" asp-route-Id="@UserAndRole.IdentityUserID">Delete</a></th>
             </tr>
         }
     </tbody>

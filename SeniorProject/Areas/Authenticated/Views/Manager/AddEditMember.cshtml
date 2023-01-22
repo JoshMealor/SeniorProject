@@ -1,0 +1,59 @@
+﻿
+@model SeniorProject.Areas.Authenticated.Models.AddEditMember
+@{
+    
+    //Create a variable to store the viewbag action data and concatenate
+    string title = ViewBag.Action.ToString() + "page";
+    //Assign the viewdata title used in layout to the variable above
+    ViewData["Title"] = title;
+}
+
+<form asp-action="AddEditMember" method="post">
+    <!--Add all the input and label for elements using asp.net tag helpers-->
+    <div>
+        <!--This one is readonly-->
+        <label asp-for="MemberID">MemberID</label>
+        <input asp-for="MemberID" readonly="true"/>
+    </div>
+    <div>
+        <label asp-for="MemberRole">MemberRole</label>
+        <input asp-for="MemberRole" />
+    </div>
+    <div>
+        <label asp-for="ActiveStatus">ActiveStatus</label>
+        <input asp-for="ActiveStatus" />
+    </div>
+    <div>
+        <label asp-for="FirstName">FirstName</label>
+        <input asp-for="FirstName" />
+    </div>
+    <div>
+        <label asp-for="LastName">LastName</label>
+        <input asp-for="LastName" />
+    </div>
+    <div>
+        <label asp-for="City">City</label>
+        <input asp-for="City" />
+    </div>
+    <div>
+        <label asp-for="State">State</label>
+        <input asp-for="State" />
+    </div>
+    <div>
+        <label asp-for="UserName">Username</label>
+        <input asp-for="UserName" />
+    </div>
+    <div>
+        <label asp-for="Email">Email</label>
+        <input asp-for="Email" />
+    </div>
+     <div>
+        <label asp-for="Phone">Phone</label>
+        <input asp-for="Phone" />
+    </div>
+
+   @* <!--Use a hidden Id field so that the primary key can be created on the datbase side-->
+    <input type="hidden" asp-for="MemberID"/>*@
+    <!--Set the btn text to whatever action edit or add this view is being used for.-->
+    <button type="submit">@ViewBag.Action</button>
+</form>

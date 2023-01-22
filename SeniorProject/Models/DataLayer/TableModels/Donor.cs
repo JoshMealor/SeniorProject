@@ -12,7 +12,8 @@ namespace SeniorProject.Models.DataLayer.TableModels
         public string SolicitedBy { get; set; }
 
         [Required(ErrorMessage = "Please enter a user.")]
-        public IdentityUser User { get; set; }
+        public IdentityUser IdentityUser { get; set; }
+        public string IdentityUserID { get; set; }
 
         
     }

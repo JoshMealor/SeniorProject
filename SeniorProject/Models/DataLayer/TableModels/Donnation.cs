@@ -13,7 +13,8 @@ namespace SeniorProject.Models.DataLayer.TableModels
 
         public DateTime DonationDate { get; set; }
 
-        [Required(ErrorMessage = "Please enter a donor.")]       
-        public Models.DataLayer.TableModels.Donor Donor { get; set; }
+        [Required(ErrorMessage = "Please enter a donor.")] 
+        public Donor Donor { get; set; }
+        public int DonorId { get; set; }
     }
 }
