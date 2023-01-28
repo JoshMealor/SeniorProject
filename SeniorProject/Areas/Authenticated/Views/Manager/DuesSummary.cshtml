@@ -1,0 +1,62 @@
+﻿@model List<SeniorProject.Areas.Authenticated.Models.DuesViewModel>
+@{
+    //Inject the model in to the razor view(1st line) and set the viewdata on title
+    ViewData["Title"] = "Dues Summary";
+}
+
+
+<!--Use bootstrap table class to style the table-->
+<table class="table">
+    <!--give the table descriptive headers-->
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>AmountDue</th>
+            <th>DueDate</th>
+            <th>AmountPaid</th>
+            <th>PaidDate</th>
+            <th>PaymentMethod</th>
+            <th>MemberID</th>
+            <th>MemberActiveStatus</th>
+            <th>MemberFirstName</th>
+            <th>MemberLastName</th>
+        </tr>        
+    </thead>
+    <!--add the table body-->
+    <tbody>
+        <!--Use razor syntax to dynamically create table row elements for the properties of the list of records in the view model-->
+        @foreach (SeniorProject.Areas.Authenticated.Models.DuesViewModel viewModel in Model)
+        {
+            <tr>
+                <!--Use inline razor expressions to add the index's model property values -->
+                <th>@viewModel.DueID</th>
+                <th>@viewModel.AmountDue</th>
+                <th>@viewModel.DateTimeDue</th>
+                <th>@viewModel.AmountPaid</th>
+                <th>@viewModel.DateTimePaid</th>
+                <th>@viewModel.PaymentMethod</th>
+                <th>@viewModel.MemberID</th>
+                <th>@viewModel.MemberActiveStatus</th>
+                <th>@viewModel.MemberFirstName</th>
+                <th>@viewModel.MemberLastName</th>
+             
+                <!--Each record will have a link styled as a bootstrap btn to add or edit next to it with route data of the row's model's id-->
+                <th><a asp-area="Authenticated" asp-controller="Manager" asp-action="EditDue" asp-route-Id="@viewModel.DueID">Edit</a></th>
+                <th><a asp-area="Authenticated" asp-controller="Manager" asp-action="DeleteDue" asp-route-Id="@viewModel.DueID">Delete</a></th>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+<!--Add a link styled as a bootstrap btn-primary to add a new record-->
+<a asp-area="Authenticated" asp-controller="Manager" asp-action="AddDue" class="btn-primary">Add</a>
+
+<!--Use a razor code block to check for tempdata with a key that is named change. If it does find one, it inserts a h4 element with the value-->
+@if (TempData.Keys.Contains("Change"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["Change"]
+    </h4>
+}
+
+
