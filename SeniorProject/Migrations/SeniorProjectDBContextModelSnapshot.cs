@@ -220,13 +220,13 @@ namespace SeniorProject.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Donnation", b =>
+            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Donation", b =>
                 {
-                    b.Property<int>("DonnationID")
+                    b.Property<int>("DonationID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DonnationID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DonationID"));
 
                     b.Property<double>("DonationAmmount")
                         .HasColumnType("float");
@@ -241,11 +241,11 @@ namespace SeniorProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DonnationID");
+                    b.HasKey("DonationID");
 
                     b.HasIndex("DonorId");
 
-                    b.ToTable("Donnations");
+                    b.ToTable("Donations");
                 });
 
             modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Donor", b =>
@@ -256,11 +256,27 @@ namespace SeniorProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DonorID"));
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("IdentityUserID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SolicitedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -336,13 +352,13 @@ namespace SeniorProject.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.EventInventation", b =>
+            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.EventInvitation", b =>
                 {
-                    b.Property<int>("EventInventationID")
+                    b.Property<int>("EventInvitationID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventInventationID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventInvitationID"));
 
                     b.Property<int>("EventID")
                         .HasColumnType("int");
@@ -359,13 +375,13 @@ namespace SeniorProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("EventInventationID");
+                    b.HasKey("EventInvitationID");
 
                     b.HasIndex("EventID");
 
                     b.HasIndex("IdentityUserID");
 
-                    b.ToTable("EventInventations");
+                    b.ToTable("EventInvitations");
                 });
 
             modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Member", b =>
@@ -461,7 +477,7 @@ namespace SeniorProject.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Donnation", b =>
+            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Donation", b =>
                 {
                     b.HasOne("SeniorProject.Models.DataLayer.TableModels.Donor", "Donor")
                         .WithMany()
@@ -494,7 +510,7 @@ namespace SeniorProject.Migrations
                     b.Navigation("Member");
                 });
 
-            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.EventInventation", b =>
+            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.EventInvitation", b =>
                 {
                     b.HasOne("SeniorProject.Models.DataLayer.TableModels.Event", "Event")
                         .WithMany()

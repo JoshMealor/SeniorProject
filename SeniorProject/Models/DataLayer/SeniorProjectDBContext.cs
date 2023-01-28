@@ -12,13 +12,13 @@ namespace SeniorProject.Models.DataLayer
     {
 
         public DbSet<Member> Members { get; set; }
-        public DbSet<EventInventation> EventInventations { get; set; }
+        public DbSet<EventInvitation> EventInvitations { get; set; }
         public DbSet<Event> Events { get; set; }
        
         public DbSet<Due> Dues { get; set; }
 
         public DbSet<Donor> Donors { get; set; }
-        public DbSet<Donnation> Donnations { get; set; }
+        public DbSet<Donation> Donations { get; set; }
       
     
         public SeniorProjectDBContext(DbContextOptions<SeniorProjectDBContext> options) : base(options)

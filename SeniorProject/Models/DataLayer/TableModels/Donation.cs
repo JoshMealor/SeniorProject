@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SeniorProject.Models.DataLayer.TableModels
 {
-    public class Donnation
+    public class Donation
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int DonnationID { get; set; }
+        public int DonationID { get; set; }
        
         public double DonationAmmount { get; set; }
         public string PaymentMethod { get; set; }

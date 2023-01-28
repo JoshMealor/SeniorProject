@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SeniorProject.Models.DataLayer.TableModels
 {
-    public class EventInventation
+    public class EventInvitation
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int EventInventationID { get; set; }
+        public int EventInvitationID { get; set; }
         
        
        
