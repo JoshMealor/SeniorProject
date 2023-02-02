@@ -3,6 +3,14 @@
 @{
     ViewBag.Title = "Please Logout First";
 }
-<h2>Please Log out first</h2>
-<p>You are logged in as: @Model.userName with role: @Model.roleName</p>
 
+<div class="text-center">
+  <h1 class="display-4">Authentication Error</h1>
+  <p>
+    <b>You are already logged in!</b>
+    Your username is @Model.userName and your role is @Model.roleName.
+  </p>
+  <p>
+    Please log out first if you would like to switch accounts.
+  </p>
+</div>
