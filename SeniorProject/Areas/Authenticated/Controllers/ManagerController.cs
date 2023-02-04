@@ -34,7 +34,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
 
         //Add an attribute for routing. Below that is the Index action 
         [HttpGet]
-        public async Task<IActionResult> ManageMembersAsync()
+        public async Task<IActionResult> MembersSummaryAsync()
         {
             //Create a list of the viewModel to sent
             List<AddEditMember> viewModelList = new List<AddEditMember>();
@@ -136,7 +136,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
                 //Go back to the summary view of the members and set the content in the element below the table indcating an error
                 TempData["Change"] = "Sorry. No records found. Try again.";
                 //Redirect 
-                return RedirectToAction("ManageMembers", "Manager", new { area = "Authenticated" });
+                return RedirectToAction("MembersSummary", "Manager", new { area = "Authenticated" });
             }
 
             //A member was found
@@ -260,7 +260,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
                     //Update the database
                     _SPDBContext.SaveChanges();
                     //Return to the summary table
-                    return RedirectToAction("ManageMembers", "Manager", new { area = "Authenticated" });
+                    return RedirectToAction("MembersSummary", "Manager", new { area = "Authenticated" });
                 }
                 else
                 {
@@ -332,7 +332,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
                     //Update the database
                     _SPDBContext.SaveChanges();
                     //Return to the summary table
-                    return RedirectToAction("ManageMembers", "Manager", new { area = "Authenticated" });
+                    return RedirectToAction("MembersSummary", "Manager", new { area = "Authenticated" });
 
                 }
                 
@@ -362,7 +362,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
                 //Set the tempdata to delete fail
                 TempData["Change"] = "Failed to remove member Id: " + Id;
                 //Redirect to the summary page
-                return RedirectToAction("ManageMembers", "Manager", new { area = "Authenticated" });
+                return RedirectToAction("MembersSummary", "Manager", new { area = "Authenticated" });
             }
 
             //The member was found 
@@ -373,7 +373,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             //Set the tempdata to delete success
             TempData["Change"] = "You successfully removed " + member.FirstName;
             //Reditect the summary page
-            return RedirectToAction("ManageMembers", "Manager",new {area = "Authenticated"});
+            return RedirectToAction("MembersSummary", "Manager",new {area = "Authenticated"});
         }
 
 

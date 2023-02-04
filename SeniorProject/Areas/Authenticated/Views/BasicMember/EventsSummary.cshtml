@@ -1,0 +1,54 @@
+﻿@model List<SeniorProject.Models.DataLayer.TableModels.Event>
+@{
+    //Inject the model in to the razor view(1st line) and set the viewdata on title
+    ViewData["Title"] = "Manage Events";
+}
+
+
+<!--Use bootstrap table class to style the table-->
+<table class="table">
+    <!--give the table descriptive headers-->
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>EventName</th>
+            <th>EventDescription</th>
+            <th>StartDateTime</th>
+            <th>EndDateTime</th>
+            <th>EventLocation</th>
+        </tr>        
+    </thead>
+    <!--add the table body-->
+    <tbody>
+        <!--Use razor syntax to dynamically create table row elements for the properties of the list of records in the view model-->
+        @foreach (SeniorProject.Models.DataLayer.TableModels.Event eventRecord in Model)
+        {
+            <tr>
+                <!--Use inline razor expressions to add the index's model property values -->
+                <th>@eventRecord.EventID</th>
+                <th>@eventRecord.EventName</th>
+                <th>@eventRecord.EventDescription</th>
+                <th>@eventRecord.StartDateTime</th>
+                <th>@eventRecord.EndDateTime</th>
+                <th>@eventRecord.EventLocation</th>
+             
+                <!--Each record will have a link styled as a bootstrap btn to add or edit next to it with route data of the row's model's id-->
+                <th><a asp-area="Authenticated" asp-controller="BasicMember" asp-action="EditEvent" asp-route-Id="@eventRecord.EventID">Edit</a></th>
+                <th><a asp-area="Authenticated" asp-controller="BasicMember" asp-action="DeleteEvent" asp-route-Id="@eventRecord.EventID">Delete</a></th>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+<!--Add a link styled as a bootstrap btn-primary to add a new record-->
+<a asp-area="Authenticated" asp-controller="BasicMember" asp-action="AddEvent" class="btn-primary">AddEvent</a>
+
+<!--Use a razor code block to check for tempdata with a key that is named change. If it does find one, it inserts a h4 element with the value-->
+@if (TempData.Keys.Contains("Change"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["Change"]
+    </h4>
+}
+
+

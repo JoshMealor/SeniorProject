@@ -3,7 +3,7 @@
 @{
     
     //Create a variable to store the viewbag action data and concatenate
-    string title = ViewBag.Action.ToString() + "page";
+    string title = ViewBag.Action + "page";
     //Assign the viewdata title used in layout to the variable above
     ViewData["Title"] = title;
 }
