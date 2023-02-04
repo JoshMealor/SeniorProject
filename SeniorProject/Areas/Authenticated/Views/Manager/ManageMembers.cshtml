@@ -1,4 +1,5 @@
-﻿@model List<SeniorProject.Areas.Authenticated.Models.AddEditMember>
+﻿@using SeniorProject.Areas.Authenticated.Models.Manager
+@model List<AddEditMember>
 @{
     //Inject the model in to the razor view(1st line) and set the viewdata on title
     ViewData["Title"] = "Manage Members";
@@ -25,7 +26,7 @@
     <!--add the table body-->
     <tbody>
         <!--Use razor syntax to dynamically create table row elements for the properties of the list of records in the view model-->
-        @foreach (SeniorProject.Areas.Authenticated.Models.AddEditMember member in Model)
+        @foreach (AddEditMember member in Model)
         {
             <tr>
                 <!--Use inline razor expressions to add the index's model property values -->

@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SeniorProject.Areas.Authenticated.Models.Admin;
 using System.Security.Cryptography.Xml;
 
 namespace SeniorProject.Areas.Authenticated.Controlllers
 {
-    
+
 
     //Add the routing attribute for the Admin area.This applies to all the actions in the controller.
     //Also add the authorization middleware. It will redirect to default area, accounts controller, access denied action
@@ -40,7 +41,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             //No need to check if user is signed in and what role. This is done with controller attributes middleware
             
             //Instantiate a list of the view model which holds user and role info.
-            List<Authenticated.Models.ManageUsersAndRolesViewModel> viewModelList = new List<Authenticated.Models.ManageUsersAndRolesViewModel>();
+            List<ManageUsersAndRolesViewModel> viewModelList = new List<ManageUsersAndRolesViewModel>();
             //Retrieve all User records
             List<IdentityUser> userList = await _userManager.Users.ToListAsync();
             //Retrieve all role records
@@ -51,7 +52,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
                 //Go through each user and find the role they are in
 
                 //Instantiate a single view model object to add certain chunks of info to. Avoiding any sensitive data sent.
-                Authenticated.Models.ManageUsersAndRolesViewModel viewModel = new Models.ManageUsersAndRolesViewModel();
+                ManageUsersAndRolesViewModel viewModel = new Models.Admin.ManageUsersAndRolesViewModel();
                 //Go ahead and add what data we can to the view model
                 viewModel.IdentityUserID = user.Id;
                 viewModel.UserName = user.UserName;
@@ -100,7 +101,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             //Adjust the viewbag data in the view to reflect the action. The addedit view is multiuse
             ViewBag.Action = "Add";
             //Instantiate the view model
-            Authenticated.Models.AddUserWithRoleViewModel viewModel = new Authenticated.Models.AddUserWithRoleViewModel();
+            AddUserWithRoleViewModel viewModel = new Authenticated.Models.Admin.AddUserWithRoleViewModel();
             viewModel.roleChoices = new List<SelectListItem>();
             //Retrieve all role records
             List<IdentityRole> roleList = await _roleManager.Roles.ToListAsync();
@@ -125,7 +126,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUserAsync(Models.AddUserWithRoleViewModel viewModel)
+        public async Task<IActionResult> AddUserAsync(AddUserWithRoleViewModel viewModel)
         {
             //If there is an error the viewmodel needs a list of role choices
             //Instantiate the viewmodel role list
@@ -238,7 +239,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             }
             
             //Instantiate the view model
-            Authenticated.Models.EditUserWithRoleViewModel viewModel = new Authenticated.Models.EditUserWithRoleViewModel();
+            EditUserWithRoleViewModel viewModel = new Authenticated.Models.Admin.EditUserWithRoleViewModel();
             //Instantiate the list in the view model
             viewModel.roleChoices = new List<SelectListItem>();
             
@@ -275,7 +276,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
         
         //Add an attribute for routing. The http post method
         [HttpPost]
-        public async Task<IActionResult> EditUserAsync(Authenticated.Models.EditUserWithRoleViewModel viewModel)
+        public async Task<IActionResult> EditUserAsync(EditUserWithRoleViewModel viewModel)
         {
             //If there is an error the viewmodel needs a list of role choices
             //Instantiate the viewmodel role list

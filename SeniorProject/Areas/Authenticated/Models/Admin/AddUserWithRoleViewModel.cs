@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Net;
 using System.Xml.Linq;
 
-namespace SeniorProject.Areas.Authenticated.Models
+namespace SeniorProject.Areas.Authenticated.Models.Admin
 {
     public class AddUserWithRoleViewModel
     {
@@ -29,7 +29,7 @@ namespace SeniorProject.Areas.Authenticated.Models
         public string? Phone { get; set; }
         [Required(ErrorMessage = "Please choose a role.")]
         public string Role { get; set; }
-       
+
         public List<SelectListItem>? roleChoices { get; set; }
     }
 }

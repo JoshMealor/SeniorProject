@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
 
-namespace SeniorProject.Areas.Authenticated.Models
+namespace SeniorProject.Areas.Authenticated.Models.Admin
 {
     public class ManageUsersAndRolesViewModel
     {
         public string IdentityUserID { get; set; }
-        public string UserName{ get; set; }
+        public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
@@ -18,6 +18,6 @@ namespace SeniorProject.Areas.Authenticated.Models
         public string RoleName { get; set; }
 
         public List<SelectListItem> roleChoices { get; set; }
-      
+
     }
 }

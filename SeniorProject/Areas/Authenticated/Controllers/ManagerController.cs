@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SeniorProject.Areas.Authenticated.Models.Manager;
 using System.Security.Cryptography.Xml;
 
 namespace SeniorProject.Areas.Authenticated.Controlllers
 {
-    
+
 
     //Add the routing attribute for the Admin area.This applies to all the actions in the controller. Also add the authorization middleware. It will redirect to login if not Authenticated with an account
     [Area("Authenticated")]
@@ -36,7 +37,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
         public async Task<IActionResult> ManageMembersAsync()
         {
             //Create a list of the viewModel to sent
-            List<SeniorProject.Areas.Authenticated.Models.AddEditMember> viewModelList = new List<Models.AddEditMember>();
+            List<AddEditMember> viewModelList = new List<AddEditMember>();
 
             //Retrieve all Member table records
             List<SeniorProject.Models.DataLayer.TableModels.Member> members = _SPDBContext.Members.ToList();
@@ -44,7 +45,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             foreach(var member in members)
             {
                 //Instantiate the single view model object
-                SeniorProject.Areas.Authenticated.Models.AddEditMember viewModel = new Models.AddEditMember();
+                AddEditMember viewModel = new Models.Manager.AddEditMember();
                 //Go ahead and assign what data we can
                 viewModel.MemberID = member.MemberID;
                 viewModel.MemberRole = member.MemberRole;
@@ -98,7 +99,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             //Adjust the viewbag data in the view to reflect the action 
             ViewBag.Action = "Add";
             //Create a new user model to pass to the view
-            SeniorProject.Areas.Authenticated.Models.AddEditMember viewModel = new Models.AddEditMember();
+            AddEditMember viewModel = new Models.Manager.AddEditMember();
             //Set all fields to defaults rather than null
             viewModel.MemberID = 0;
             viewModel.MemberRole = string.Empty;
@@ -124,7 +125,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             //Adjust the viewbag data in the view to reflect the action. The view for add and edit is multiuse.
             ViewBag.Action = "Edit";
             //Instantiate the view model
-            SeniorProject.Areas.Authenticated.Models.AddEditMember viewModel = new Models.AddEditMember();
+            AddEditMember viewModel = new Models.Manager.AddEditMember();
 
             //Retrieve the member info assocaited with the member Id passed in
             SeniorProject.Models.DataLayer.TableModels.Member member = _SPDBContext.Members.Find(Id);
@@ -182,7 +183,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
 
         //Add an attribute for routing. http method: post 
         [HttpPost]
-        public async Task<IActionResult> AddEditMemberAsync(SeniorProject.Areas.Authenticated.Models.AddEditMember viewModel)
+        public async Task<IActionResult> AddEditMemberAsync(AddEditMember viewModel)
         {
             //This method is used for both adding and editing:  post methods
 
@@ -388,7 +389,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
         public async Task<IActionResult> DuesSummary()
         {
             //Create a list of the viewModel to send
-            List<SeniorProject.Areas.Authenticated.Models.DuesViewModel> viewModelList = new List<Models.DuesViewModel>();
+            List<DuesViewModel> viewModelList = new List<DuesViewModel>();
 
             //Retrieve all dues table records
             List<SeniorProject.Models.DataLayer.TableModels.Due> dues = _SPDBContext.Dues.ToList();
@@ -396,7 +397,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             foreach (var due in dues)
             {
                 //Instantiate the single view model object
-                SeniorProject.Areas.Authenticated.Models.DuesViewModel viewModel = new Models.DuesViewModel();
+                DuesViewModel viewModel = new Models.Manager.DuesViewModel();
                 //Go ahead and assign what data we can
                 viewModel.DueID = due.DueID;
                 viewModel.AmountDue= due.AmountDue;
@@ -451,7 +452,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             //Adjust the viewbag data in the view to reflect the action 
             ViewBag.Action = "Add";
             //Instantiate a new view model to pass to the view
-            SeniorProject.Areas.Authenticated.Models.DuesViewModel viewModel = new Models.DuesViewModel();
+            DuesViewModel viewModel = new Models.Manager.DuesViewModel();
             //Set all fields to defaults rather than null
             viewModel.DueID = 0;
             viewModel.AmountDue= 0;
@@ -477,7 +478,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
             //Adjust the viewbag data in the view to reflect the action. The view for add and edit is multiuse.
             ViewBag.Action = "Edit";
             //Instantiate the view model
-            SeniorProject.Areas.Authenticated.Models.DuesViewModel viewModel = new Models.DuesViewModel();
+            DuesViewModel viewModel = new Models.Manager.DuesViewModel();
 
             //Retrieve the records info assocaited with the primary key Id passed in
             SeniorProject.Models.DataLayer.TableModels.Due record = _SPDBContext.Dues.Find(Id);
@@ -538,7 +539,7 @@ namespace SeniorProject.Areas.Authenticated.Controlllers
 
         //Add an attribute for routing. http method: post 
         [HttpPost]
-        public async Task<IActionResult> AddEditDuesAsync(SeniorProject.Areas.Authenticated.Models.DuesViewModel viewModel)
+        public async Task<IActionResult> AddEditDuesAsync(DuesViewModel viewModel)
         {
             //This method is used for both adding and editing:  post methods
 
