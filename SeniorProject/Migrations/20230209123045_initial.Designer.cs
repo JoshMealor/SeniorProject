@@ -12,7 +12,7 @@ using SeniorProject.Models.DataLayer;
 namespace SeniorProject.Migrations
 {
     [DbContext(typeof(SeniorProjectDBContext))]
-    [Migration("20230127235748_initial")]
+    [Migration("20230209123045_initial")]
     partial class initial
     {
         /// <inheritdoc />

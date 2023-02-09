@@ -9,9 +9,6 @@ namespace SeniorProject.Models.DataLayer.TableModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EventInvitationID { get; set; }
         
-       
-       
-
         public string InvitationBody { get; set; }
         public string InvitationResponseBody { get; set; }
 
