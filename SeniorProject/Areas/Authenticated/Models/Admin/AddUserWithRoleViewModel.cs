@@ -27,6 +27,7 @@ namespace SeniorProject.Areas.Authenticated.Models.Admin
 
         public string? Email { get; set; }
         public string? Phone { get; set; }
+
         [Required(ErrorMessage = "Please choose a role.")]
         public string Role { get; set; }
 

@@ -8,10 +8,20 @@ namespace SeniorProject.Areas.Authenticated.Models.Manager
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DueID { get; set; }
 
+        [Required(ErrorMessage = "Please input the amount due.")]
+        [DataType(DataType.Currency)]
         public double AmountDue { get; set; }
+
+        [DataType(DataType.DateTime)]
         public DateTime? DateTimeDue { get; set; }
+
+        [Required(ErrorMessage = "Please input the amount paid.")]
+        [DataType(DataType.Currency)]
         public double AmountPaid { get; set; }
+
+        [DataType(DataType.DateTime)]
         public DateTime? DateTimePaid { get; set; }
+
         public string? PaymentMethod { get; set; }
 
 
