@@ -21,7 +21,10 @@ namespace SeniorProject.Areas.Authenticated.Models.Admin
 
         public bool Active { get; set; }
 
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
 
         public string RoleName { get; set; }

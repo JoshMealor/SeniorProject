@@ -24,8 +24,10 @@ namespace SeniorProject.Areas.Authenticated.Models.Admin
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
-
+        [DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
         public string? Phone { get; set; }
 
         [Required(ErrorMessage = "Please choose a role.")]

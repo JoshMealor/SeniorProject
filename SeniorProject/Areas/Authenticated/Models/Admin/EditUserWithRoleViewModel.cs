@@ -11,8 +11,10 @@ namespace SeniorProject.Areas.Authenticated.Models.Admin
         public string? Username { get; set; }
 
 
-
+        [DataType(DataType.EmailAddress)]
         public string? Email { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
         public string? PhoneNumber { get; set; }
 
         public string? role { get; set; }
