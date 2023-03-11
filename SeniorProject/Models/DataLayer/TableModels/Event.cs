@@ -23,5 +23,11 @@ namespace SeniorProject.Models.DataLayer.TableModels
         public DateTime EndDateTime { get; set; }
         public string EventLocation { get; set; }
 
+        //Created By By Member
+
+        [Required(ErrorMessage = "Please enter a member.")]
+        public Member Member { get; set; }
+        public int MemberID { get; set; }
+
     }
 }

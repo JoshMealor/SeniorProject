@@ -16,8 +16,17 @@ namespace SeniorProject.Models.DataLayer.TableModels
         public Event Event { get; set; }
         public int EventID { get; set; }
 
-        [Required(ErrorMessage = "Please enter a user.")]
-        public IdentityUser IdentityUser { get; set; }
-        public string IdentityUserID { get; set; }
+        //Member who sent the invitation
+
+        [Required(ErrorMessage = "Please enter a member.")]
+        public Member Member_Sender { get; set; }
+        public int MemberID_Sender { get; set; }
+
+        //Member who recieved the invitation
+        [Required(ErrorMessage = "Please enter a member.")]
+        public Member Member_Reciever { get; set; }
+        public int MemberID_Reciever { get; set; }
+
+        
     }
 }

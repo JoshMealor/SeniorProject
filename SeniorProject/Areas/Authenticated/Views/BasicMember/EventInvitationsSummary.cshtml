@@ -1,0 +1,70 @@
+﻿@model List<SeniorProject.Areas.Authenticated.Models.BasicMember.EventInvitationsViewModel>
+@{
+    //Inject the model in to the razor view(1st line) and set the viewdata on title
+    ViewData["Title"] = "Manage EventInvitations";
+}
+
+
+<!--Use bootstrap table class to style the table-->
+<table class="table">
+    <!--give the table descriptive headers-->
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>InvitationBody</th>
+            <th>InvitationResponseBody</th>
+            <th>EventName</th>
+            <th>EventLocation</th>
+            <th>StartDateTime</th>
+            <th>EndDateTime</th>
+            <th>EventID</th>
+            <th>MemberFirstName_Sender</th>
+            <th>MemberLastName_Sender</th>
+            <th>MemberID_Sender</th>
+            <th>MemberFirstName_Reciever</th>
+            <th>MemberLastName_Reciever</th>
+            <th>MemberID_Reciever</th>
+
+        </tr>        
+    </thead>
+    <!--add the table body-->
+    <tbody>
+        <!--Use razor syntax to dynamically create table row elements for the properties of the list of records in the view model-->
+        @foreach (var record in Model)
+        {
+            <tr>
+                <!--Use inline razor expressions to add the index's model property values -->
+                <th>@record.EventInvitationID</th>
+                <th>@record.InvitationBody</th>
+                <th>@record.InvitationResponseBody</th>
+                <th>@record.EventName</th>
+                <th>@record.EventLocation</th>
+                <th>@record.StartDateTime</th>
+                <th>@record.EventID</th>
+                <th>@record.MemberFirstName_Sender</th>
+                <th>@record.MemberLastName_Sender</th>
+                <th>@record.MemberID_Sender</th>
+                <th>@record.MemberFirstName_Reciever</th>
+                <th>@record.MemberLastName_Reciever</th>
+                <th>@record.MemberID_Reciever</th>
+             
+                <!--Each record will have a link styled as a bootstrap btn to add or edit next to it with route data of the row's model's id-->
+                <th><a asp-area="Authenticated" asp-controller="BasicMember" asp-action="EditEventInvitation" asp-route-Id="@record.EventInvitationID">Edit</a></th>
+                <th><a asp-area="Authenticated" asp-controller="BasicMember" asp-action="DeleteEventInvitation" asp-route-Id="@record.EventInvitationID">Delete</a></th>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+<!--Add a link styled as a bootstrap btn-primary to add a new record-->
+<a asp-area="Authenticated" asp-controller="BasicMember" asp-action="AddEventInvitation" class="btn-primary">AddEventInvitation</a>
+
+<!--Use a razor code block to check for tempdata with a key that is named change. If it does find one, it inserts a h4 element with the value-->
+@if (TempData.Keys.Contains("Change"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["Change"]
+    </h4>
+}
+
+

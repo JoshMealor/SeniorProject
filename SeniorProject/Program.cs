@@ -120,6 +120,16 @@ using (IServiceScope scope = scopeFactory.CreateScope())
     //testVolunteer password123
     await SeniorProjectDBContext.CreateBasicUsers(scope.ServiceProvider);
 
+    await SeniorProjectDBContext.SeedMembers(scope.ServiceProvider);
+
+    await SeniorProjectDBContext.SeedDonations(scope.ServiceProvider);
+
+    await SeniorProjectDBContext.SeedDues(scope.ServiceProvider);
+
+    await SeniorProjectDBContext.SeedEvents(scope.ServiceProvider);
+
+    await SeniorProjectDBContext.SeedEventInvitations(scope.ServiceProvider);
+
 }
 
 app.Run();

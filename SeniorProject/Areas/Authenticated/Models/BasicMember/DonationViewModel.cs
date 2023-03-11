@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SeniorProject.Models.DataLayer.TableModels
+namespace SeniorProject.Areas.Authenticated.Models.BasicMember
 {
-    public class Donation
+    public class DonationViewModel
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DonationID { get; set; }
@@ -17,12 +17,12 @@ namespace SeniorProject.Models.DataLayer.TableModels
         [DataType(DataType.DateTime)]
         public DateTime DonationDate { get; set; }
 
-        public string DonorNameOrTitle { get; set; }
+        public string? DonorNameOrTitle { get; set; }
 
         //Collected By Member
 
-        [Required(ErrorMessage = "Please enter a member.")]
-        public Member Member { get; set; }
+        public string? MemberFirstName { get; set; }
+        public string? MemberLastName { get; set; }
         public int MemberID { get; set; }
     }
 }

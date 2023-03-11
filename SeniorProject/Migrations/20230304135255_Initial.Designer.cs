@@ -12,8 +12,8 @@ using SeniorProject.Models.DataLayer;
 namespace SeniorProject.Migrations
 {
     [DbContext(typeof(SeniorProjectDBContext))]
-    [Migration("20230209123045_initial")]
-    partial class initial
+    [Migration("20230304135255_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -237,57 +237,18 @@ namespace SeniorProject.Migrations
                     b.Property<DateTime>("DonationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DonorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PaymentMethod")
+                    b.Property<string>("DonorNameOrTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MemberID")
+                        .HasColumnType("int");
 
                     b.HasKey("DonationID");
 
-                    b.HasIndex("DonorId");
+                    b.HasIndex("MemberID");
 
                     b.ToTable("Donations");
-                });
-
-            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Donor", b =>
-                {
-                    b.Property<int>("DonorID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DonorID"));
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdentityUserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SolicitedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DonorID");
-
-                    b.HasIndex("IdentityUserID");
-
-                    b.ToTable("Donors");
                 });
 
             modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Due", b =>
@@ -337,7 +298,8 @@ namespace SeniorProject.Migrations
 
                     b.Property<string>("EventDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<string>("EventLocation")
                         .IsRequired()
@@ -345,12 +307,18 @@ namespace SeniorProject.Migrations
 
                     b.Property<string>("EventName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int>("MemberID")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDateTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("EventID");
+
+                    b.HasIndex("MemberID");
 
                     b.ToTable("Events");
                 });
@@ -366,10 +334,6 @@ namespace SeniorProject.Migrations
                     b.Property<int>("EventID")
                         .HasColumnType("int");
 
-                    b.Property<string>("IdentityUserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("InvitationBody")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -378,11 +342,25 @@ namespace SeniorProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MemberID_Reciever")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MemberID_Sender")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Member_RecieverMemberID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Member_SenderMemberID")
+                        .HasColumnType("int");
+
                     b.HasKey("EventInvitationID");
 
                     b.HasIndex("EventID");
 
-                    b.HasIndex("IdentityUserID");
+                    b.HasIndex("Member_RecieverMemberID");
+
+                    b.HasIndex("Member_SenderMemberID");
 
                     b.ToTable("EventInvitations");
                 });
@@ -482,27 +460,27 @@ namespace SeniorProject.Migrations
 
             modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Donation", b =>
                 {
-                    b.HasOne("SeniorProject.Models.DataLayer.TableModels.Donor", "Donor")
+                    b.HasOne("SeniorProject.Models.DataLayer.TableModels.Member", "Member")
                         .WithMany()
-                        .HasForeignKey("DonorId")
+                        .HasForeignKey("MemberID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Donor");
-                });
-
-            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Donor", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("IdentityUserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("IdentityUser");
+                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Due", b =>
+                {
+                    b.HasOne("SeniorProject.Models.DataLayer.TableModels.Member", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Member");
+                });
+
+            modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Event", b =>
                 {
                     b.HasOne("SeniorProject.Models.DataLayer.TableModels.Member", "Member")
                         .WithMany()
@@ -521,15 +499,23 @@ namespace SeniorProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                    b.HasOne("SeniorProject.Models.DataLayer.TableModels.Member", "Member_Reciever")
                         .WithMany()
-                        .HasForeignKey("IdentityUserID")
+                        .HasForeignKey("Member_RecieverMemberID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SeniorProject.Models.DataLayer.TableModels.Member", "Member_Sender")
+                        .WithMany()
+                        .HasForeignKey("Member_SenderMemberID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Event");
 
-                    b.Navigation("IdentityUser");
+                    b.Navigation("Member_Reciever");
+
+                    b.Navigation("Member_Sender");
                 });
 
             modelBuilder.Entity("SeniorProject.Models.DataLayer.TableModels.Member", b =>

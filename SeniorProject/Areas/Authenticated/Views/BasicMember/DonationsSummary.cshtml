@@ -1,0 +1,56 @@
+﻿@model List<SeniorProject.Areas.Authenticated.Models.BasicMember.DonationViewModel>
+@{
+    //Inject the model in to the razor view(1st line) and set the viewdata on title
+    ViewData["Title"] = "Manage Donations";
+}
+
+
+<!--Use bootstrap table class to style the table-->
+<table class="table">
+    <!--give the table descriptive headers-->
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>DonationAmount</th>
+            <th>DonationDate</th>
+            <th>DonorNameOrTitle</th>
+            <th>MemberCollectedByFirstName</th>
+            <th>MemberCollectedByLastName</th>
+            <th>MemberCollectedByMemberID</th>
+        </tr>        
+    </thead>
+    <!--add the table body-->
+    <tbody>
+        <!--Use razor syntax to dynamically create table row elements for the properties of the list of records in the view model-->
+        @foreach (var record in Model)
+        {
+            <tr>
+                <!--Use inline razor expressions to add the index's model property values -->
+                <th>@record.DonationID</th>
+                <th>@record.DonationAmmount</th>
+                <th>@record.DonationDate</th>
+                <th>@record.DonorNameOrTitle</th>
+                <th>@record.MemberFirstName</th>
+                <th>@record.MemberLastName</th>
+                <th>@record.MemberID</th>
+             
+                <!--Each record will have a link styled as a bootstrap btn to add or edit next to it with route data of the row's model's id-->
+                <th><a asp-area="Authenticated" asp-controller="BasicMember" asp-action="EditDonation" asp-route-Id="@record.DonationID">Edit</a></th>
+                <th><a asp-area="Authenticated" asp-controller="BasicMember" asp-action="DeleteDonation" asp-route-Id="@record.DonationID">Delete</a></th>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+<!--Add a link styled as a bootstrap btn-primary to add a new record-->
+<a asp-area="Authenticated" asp-controller="BasicMember" asp-action="AddDonation" class="btn-primary">AddDonation</a>
+
+<!--Use a razor code block to check for tempdata with a key that is named change. If it does find one, it inserts a h4 element with the value-->
+@if (TempData.Keys.Contains("Change"))
+{
+    <h4 class="bg-info text-center text-white p-2">
+        @TempData["Change"]
+    </h4>
+}
+
+
