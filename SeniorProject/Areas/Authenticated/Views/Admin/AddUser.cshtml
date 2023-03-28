@@ -43,15 +43,25 @@
     </div>
    
     
-    <div>
-        <label asp-for="Email">Email</label>
-        <input asp-for="Email" />
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="Email">Email</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="Email" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="Phone">PhoneNumber</label>
-        <input asp-for="Phone" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="Phone">PhoneNumber</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="Phone" />
+        </div>       
     </div>
-    <div>
+
+    <div class="form-group row">
         <!--The view model property role choices is a list of SelectedListItem objects which will mark which one is selected-->
          <select asp-for="Role" asp-items="@Model.roleChoices" class="form-control">
          </select>

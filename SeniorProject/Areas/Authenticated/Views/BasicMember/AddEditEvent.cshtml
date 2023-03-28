@@ -10,30 +10,58 @@
 
 <form asp-action="AddEditEvent" method="post">
     <!--Add all the input and label for elements using asp.net tag helpers-->
-    <div>
+    <div class="form-group row">
         <!--This one is readonly-->
-        <label asp-for="EventID">EventID</label>
+        <div classclass="col-sm-2">
+            <label asp-for="EventID">EventID</label>
+        </div>
+        
         <input asp-for="EventID" readonly="true"/>
     </div>
-    <div>
-        <label asp-for="EventName">EventName</label>
-        <input asp-for="EventName" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="EventName">EventName</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="EventName" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="EventDescription">EventDescription</label>
-        <input asp-for="EventDescription" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="EventDescription">EventDescription</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="EventDescription" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="StartDateTime">StartDateTime</label>
-        <input asp-for="StartDateTime" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="StartDateTime">StartDateTime</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="StartDateTime" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="EndDateTime">EndDateTime</label>
-        <input asp-for="EndDateTime" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="EndDateTime">EndDateTime</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="EndDateTime" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="EventLocation">EventLocation</label>
-        <input asp-for="EventLocation" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="EventLocation">EventLocation</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="EventLocation" />
+        </div>        
     </div>
    
 

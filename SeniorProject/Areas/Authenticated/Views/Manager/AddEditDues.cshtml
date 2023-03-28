@@ -10,46 +10,95 @@
 
 <form asp-action="AddEditDues" method="post">
     <!--Add all the input and label for elements using asp.net tag helpers-->
-    <div>
+    <div class="form-group row">
         <!--This one is readonly-->
-        <label asp-for="DueID">ID</label>
-        <input asp-for="DueID" readonly="true"/>
+        <div class="col-sm-2">
+            <label asp-for="DueID">ID</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="DueID" readonly="true" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="AmountDue">Amount Due</label>
-        <input asp-for="AmountDue" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="AmountDue">Amount Due</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="AmountDue" />
+        </div>       
     </div>
-    <div>
-        <label asp-for="DateTimeDue">DateTimeDue</label>
-        <input asp-for="DateTimeDue" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="DateTimeDue">DateTimeDue</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="DateTimeDue" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="AmountPaid">AmountPaid</label>
-        <input asp-for="AmountPaid" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="AmountPaid">AmountPaid</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="AmountPaid" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="DateTimePaid">DateTimePaid</label>
-        <input asp-for="DateTimePaid" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="DateTimePaid">DateTimePaid</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="DateTimePaid" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="PaymentMethod">PaymentMethod</label>
-        <input asp-for="PaymentMethod" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="PaymentMethod">PaymentMethod</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="PaymentMethod" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberID">MemberID</label>
-        <input asp-for="MemberID" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberID">MemberID</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberID" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberActiveStatus">MemberActiveStatus</label>
-        <input asp-for="MemberActiveStatus" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberActiveStatus">MemberActiveStatus</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberActiveStatus" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberFirstName">MemberFirstName</label>
-        <input asp-for="MemberFirstName" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberFirstName">MemberFirstName</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberFirstName" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberLastName">MemberLastName</label>
-        <input asp-for="MemberLastName" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberLastName">MemberLastName</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberLastName" />
+        </div>      
     </div>
 
    @* <!--Use a hidden Id field so that the primary key can be created on the datbase side-->

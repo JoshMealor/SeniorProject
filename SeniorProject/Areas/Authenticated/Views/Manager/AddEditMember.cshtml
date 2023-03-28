@@ -10,46 +10,95 @@
 
 <form asp-action="AddEditMember" method="post">
     <!--Add all the input and label for elements using asp.net tag helpers-->
-    <div>
+    <div class="form-group row">
         <!--This one is readonly-->
-        <label asp-for="MemberID">MemberID</label>
-        <input asp-for="MemberID" readonly="true"/>
+        <div class="col-sm-2">
+            <label asp-for="MemberID">MemberID</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberID" readonly="true" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberRole">MemberRole</label>
-        <input asp-for="MemberRole" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberRole">MemberRole</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberRole" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="ActiveStatus">ActiveStatus</label>
-        <input asp-for="ActiveStatus" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="ActiveStatus">ActiveStatus</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="ActiveStatus" />
+        </div>       
     </div>
-    <div>
-        <label asp-for="FirstName">FirstName</label>
-        <input asp-for="FirstName" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="FirstName">FirstName</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="FirstName" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="LastName">LastName</label>
-        <input asp-for="LastName" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="LastName">LastName</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="LastName" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="City">City</label>
-        <input asp-for="City" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="City">City</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="City" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="State">State</label>
-        <input asp-for="State" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="State">State</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="State" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="UserName">Username</label>
-        <input asp-for="UserName" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="UserName">Username</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="UserName" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="Email">Email</label>
-        <input asp-for="Email" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="Email">Email</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="Email" />
+        </div>        
     </div>
-     <div>
-        <label asp-for="Phone">Phone</label>
-        <input asp-for="Phone" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="Phone">Phone</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="Phone" />
+        </div>        
     </div>
 
    @* <!--Use a hidden Id field so that the primary key can be created on the datbase side-->

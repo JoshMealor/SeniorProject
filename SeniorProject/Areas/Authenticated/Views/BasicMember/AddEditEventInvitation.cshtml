@@ -10,62 +10,131 @@
 
 <form asp-action="AddEditEventInvitation" method="post">
     <!--Add all the input and label for elements using asp.net tag helpers-->
-    <div>
+    <div class="form-group row">
         <!--This one is readonly-->
-        <label asp-for="EventInvitationID">ID</label>
-        <input asp-for="EventInvitationID" readonly="true"/>
+        <div class="col-sm-2">
+            <label asp-for="EventInvitationID">ID</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="EventInvitationID" readonly="true" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="InvitationBody">InvitationBody</label>
-        <input asp-for="InvitationBody" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="InvitationBody">InvitationBody</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="InvitationBody" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="InvitationResponseBody">InvitationResponseBody</label>
-        <input asp-for="InvitationResponseBody" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="InvitationResponseBody">InvitationResponseBody</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="InvitationResponseBody" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="EventName">EventName</label>
-        <input asp-for="EventName" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="EventName">EventName</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="EventName" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="EventLocation">EventLocation</label>
-        <input asp-for="EventLocation" readonly="true" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="EventLocation">EventLocation</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="EventLocation" readonly="true" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="StartDateTime">StartDateTime</label>
-        <input asp-for="StartDateTime" readonly="true"/>
+
+    <div class="form-group row">
+        <div classclass="col-sm-2">
+            <label asp-for="StartDateTime">StartDateTime</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="StartDateTime" readonly="true" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="EndDateTime">EndDateTime</label>
-        <input asp-for="EndDateTime"/>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="EndDateTime">EndDateTime</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="EndDateTime" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="EventID">EventID</label>
-        <input asp-for="EventID" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="EventID">EventID</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="EventID" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberFirstName_Sender">MemberFirstName_Sender</label>
-        <input asp-for="MemberFirstName_Sender" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberFirstName_Sender">MemberFirstName_Sender</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberFirstName_Sender" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberLastName_Sender">MemberLastName_Sender</label>
-        <input asp-for="MemberLastName_Sender"/>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberLastName_Sender">MemberLastName_Sender</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberLastName_Sender" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberID_Sender">MemberID_Sender</label>
-        <input asp-for="MemberID_Sender" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberID_Sender">MemberID_Sender</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberID_Sender" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberFirstName_Reciever">MemberFirstName_Reciever</label>
-        <input asp-for="MemberFirstName_Reciever" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberFirstName_Reciever">MemberFirstName_Reciever</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberFirstName_Reciever" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberLastName_Reciever">MemberLastName_Reciever</label>
-        <input asp-for="MemberLastName_Reciever" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberLastName_Reciever">MemberLastName_Reciever</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberLastName_Reciever" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberID_Reciever">MemberID_Reciever</label>
-        <input asp-for="MemberID_Reciever"/>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberID_Reciever">MemberID_Reciever</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="MemberID_Reciever" />
+        </div>        
     </div>
 
    

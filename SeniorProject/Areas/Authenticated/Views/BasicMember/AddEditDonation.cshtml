@@ -10,34 +10,68 @@
 
 <form asp-action="AddEditDonation" method="post">
     <!--Add all the input and label for elements using asp.net tag helpers-->
-    <div>
+    <div class="form-group row">
         <!--This one is readonly-->
-        <label asp-for="DonationID">DonationID</label>
-        <input asp-for="DonationID" readonly="true"/>
+        <div class="col-sm-2">
+            <label asp-for="DonationID">DonationID</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="DonationID" readonly="true" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="DonationAmmount">DonationAmmount</label>
-        <input asp-for="DonationAmmount" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="DonationAmmount">DonationAmmount</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="DonationAmmount" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="DonationDate">DonationDate</label>
-        <input asp-for="DonationDate" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="DonationDate">DonationDate</label>
+        </div>
+        <div classclass="col-sm-4">
+            <input asp-for="DonationDate" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="DonorNameOrTitle">DonorNameOrTitle</label>
-        <input asp-for="DonorNameOrTitle" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="DonorNameOrTitle">DonorNameOrTitle</label>
+        </div>
+        <div class="col-sm-4">
+            <input asp-for="DonorNameOrTitle" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberFirstName">MemberCollectedByFirstName</label>
-        <input asp-for="MemberFirstName" readonly="true" />
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberFirstName">MemberCollectedByFirstName</label>
+        </div>  
+        <div class="col-sm-4">
+            <input asp-for="MemberFirstName" readonly="true" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberLastName">MemberCollectedByLastName</label>
-        <input asp-for="MemberLastName" readonly="true"/>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberLastName">MemberCollectedByLastName</label>
+        </div>
+        <div class="sm-col-4">
+            <input asp-for="MemberLastName" readonly="true" />
+        </div>        
     </div>
-    <div>
-        <label asp-for="MemberID">MemberCollectedByID</label>
-        <input asp-for="MemberID"/>
+
+    <div class="form-group row">
+        <div class="col-sm-2">
+            <label asp-for="MemberID">MemberCollectedByID</label>
+        </div>  
+        <div class="col-sm-4">
+            <input asp-for="MemberID" />
+        </div>        
     </div>
    
 
